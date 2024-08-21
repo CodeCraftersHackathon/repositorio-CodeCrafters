@@ -1,18 +1,11 @@
 import { Footer } from "./Footer.component"
 import { Header } from "./Header.component"
-import { Chatbot } from "./Chatbot"
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useContext } from "react";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { PageContext } from "../../context/App.context";
-import { FaHome } from "react-icons/fa";
-import { IoLogInOutline } from "react-icons/io5";
-import { TbLogout2 } from "react-icons/tb";
-import { CgProfile } from "react-icons/cg";
-import { IoMdBookmarks } from "react-icons/io";
-import { useToast } from "../../hooks/useToast";
-import { NavBar } from "./NavBar";
+import { PageContext } from "../context/App.context";
+import { useToast } from "../hooks/useToast";
 
 export const Layout = ({ children }) => {
 
@@ -40,20 +33,17 @@ export const Layout = ({ children }) => {
     return (
         <>
             <div className="">
-                <NavBar />
 
                 <div className="flex flex-col h-screen w-full" >
 
                     <Header />
                     <ToastContainer />
 
-                    <main className={`${darkTheme ? "bg-slate-900" : "bg-gray-200"} 
-                    mx-auto text-center w-full flex flex-col pl-12 pt-14`}>
+                    <main className={`bg-gray-200'} 
+                    mx-auto text-center w-full flex-1 flex-col pl-12 pt-14`}>
                         <section className="z-10">
                             {children}
                         </section>
-
-                        <Chatbot />
                     </main>
                     <Footer />
                 </div >
