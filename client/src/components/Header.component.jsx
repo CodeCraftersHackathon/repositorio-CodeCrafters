@@ -5,7 +5,7 @@ import { useToggle } from "../hooks/useToggle";
 import { useContext } from "react";
 import { PageContext } from "../context/App.context";
 import { useNavigate } from "react-router-dom";
-// import logo from "/logo64x64.png"
+import logo from "../assets/logo/logotipo.png";
 
 export const Header = () => {
     const navigate = useNavigate();
@@ -34,10 +34,10 @@ export const Header = () => {
                     {/* //! LOGO */}
                     <div className='flex items-center space-x-2 flex-grow justify-start'>
 
-                        {/* <img src={logo} alt="Logo CodeTrain" width={52} height={52} /> */}
+                        <img src={logo} alt="Logo CodeTrain" width={128} height={128} /> 
 
                         <a onClick={() => navigate("/")} className='text-2xl font-bold cursor-pointer' style={{ fontFamily: "JetBrains Mono, monospace" }} title="Volver al inicio">
-                            StudyMate
+                            
                         </a>
                     </div>
 
