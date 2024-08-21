@@ -1,4 +1,5 @@
 import UserService from "../services/UserService.js"
+import fakeUser from '../db/fake-user.json' assert { type: 'json' };
 
 export const getUserById = async (req, res) => {
     try {
@@ -40,45 +41,11 @@ export const getUserByNameOrEmail = async (req, res) => {
     }
 }
 
-export const getUsersByRole = async (req, res) => {
+export const createStudent = async (req, res) => {
     try {
-        const users = await UserService.findByRole(req.params.role);
-        if (!users) {
-            throw ({
-                statusCode: 404,
-                status: "Not Found",
-                message: "No se encontraron el usuarios",
-            });
-        }
-        return res.json(users)
-
-    } catch (error) {
-        return res.status(error.statusCode || 500).json({
-            message: error.message,
-            status: error.status,
-        })
-    }
-}
-
-export const createClient = async (req, res) => {
-    try {
-        await UserService.createClient(req.body)
+        await UserService.createUser(req.body)
         return res.status(201).json({
-            message: 'Cliente registrado'
-        })
-    } catch (error) {
-        return res.status(error.statusCode || 500).json({
-            message: error.message,
-            status: error.status
-        })
-    }
-}
-
-export const createSeller = async (req, res) => {
-    try {
-        await UserService.createSeller(req.body)
-        return res.status(201).json({
-            message: 'Usuario registrado'
+            message: 'Estudiante registrado'
         })
     } catch (error) {
         return res.status(error.statusCode || 500).json({
@@ -111,6 +78,22 @@ export const login = async (req, res) => {
         return res.status(201).json({
             message: 'Login correcto', token
         })
+    } catch (error) {
+        return res.status(error.statusCode || 500).json({
+            message: error.message,
+            status: error.status
+        })
+    }
+}
+
+export const createFakeUser = async (req, res) => {
+    try {
+        const users = await UserService.insertManyFake(fakeUser)
+
+        return res.status(201).json({
+            message: users
+        })
+        
     } catch (error) {
         return res.status(error.statusCode || 500).json({
             message: error.message,

@@ -1,4 +1,4 @@
-import { check } from "express-validator";
+import { check, header, param } from "express-validator";
 import { validateSchema } from "../helpers/expressValidator.js";
 
 const allowedFields = ['name', 'role', 'password', 'email', "user"]
@@ -66,4 +66,40 @@ export const validateNameOrEmail = [
         .exists().withMessage("Debe escoger un nombre de usuario o email"),
 
     validateSchema(allowedFields)
+]
+
+
+export const validateParamsId = [
+
+    param("id")
+        .exists().withMessage("Debe proporcionar un ID")
+        .isAlphanumeric().withMessage("El ID no es valido"),
+
+    validateSchema(["id"])
+
+]
+
+export const validateParamsRole = [
+
+    param("role")
+        .exists().withMessage("Debe proporcionar un rol")
+        .custom((value) => {
+            if (value != 'SELLER' && value != 'CLIENT') {
+                throw new Error('El campo role debe ser "SELLER" o "CLIENT');
+            }
+            return true;
+        }).withMessage('El campo role debe ser "SELLER" o "CLIENT'),
+
+    validateSchema(["role"])
+
+]
+
+
+export const validateHeader = [
+
+    header('Authorization')
+        .exists().withMessage('El encabezado Authorization es requerido'),
+
+    validateSchema(allowedFields)
+
 ]

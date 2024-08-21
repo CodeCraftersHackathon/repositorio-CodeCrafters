@@ -4,6 +4,13 @@ import { verifyPassword } from "../helpers/validatePassword.js"
 
 class UserService {
 
+    async findAll() {
+        try {
+            return await User.find()
+        } catch (error) {
+            throw new Error("No se encontraron usuarios");
+        }
+    }
     async findOne(id) {
         try {
             return await User.findById(id)
@@ -37,28 +44,14 @@ class UserService {
         }
     }
 
-    async createClient(user) {
+    async createUser(user) {
         try {
-            const existClient = await this.findByNameOrEmail({ user: user.name })
+            const existUser = await this.findByNameOrEmail({ user: user.name })
 
-            if (!existClient) {
+            if (!existUser) {
                 if (!user.role) {
-                    return await User.create({ ...user, role: "CLIENT" });
+                    return await User.create({ ...user, role: "STUDENT" });
                 }
-            } else {
-                throw new Error("El nombre de usuario ya esta ocupado");
-            }
-        } catch (error) {
-            throw new Error(error.message || "Error al crear usuario");
-        }
-    }
-
-    async createSeller(user) {
-        try {
-            const existSeller = await this.findByNameOrEmail({ user: user.name })
-
-            if (!existSeller) {
-                return await User.create(user);
             } else {
                 throw new Error("El nombre de usuario ya esta ocupado");
             }
@@ -77,6 +70,7 @@ class UserService {
             } else {
                 throw new Error("No se puede eliminar al ADMIN")
             }
+
         } catch (error) {
             throw new Error("No fue posible eliminar al usuario");
         }
@@ -99,6 +93,24 @@ class UserService {
             }
         } catch (error) {
             throw new Error(error.message || "Error al iniciar sesion");
+        }
+    }
+
+
+    async insertManyFake(data) {
+        try {
+            const existUsers = await this.findAll()
+
+            if (!existUsers) {
+                //! Inserta múltiples documentos en la colección
+                await User.insertMany(data);
+                return 'Datos insertados correctamente';
+            }else{
+                throw new Error("No es posible insertar tantos usuarios");
+            }
+
+        } catch (error) {
+            throw new Error(error.message || "Error al insertar datos");
         }
     }
 
