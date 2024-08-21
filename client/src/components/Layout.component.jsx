@@ -33,15 +33,14 @@ export const Layout = ({ children }) => {
     return (
         <>
             <div className="">
-                <NavBar />
 
                 <div className="flex flex-col h-screen w-full" >
 
                     <Header />
                     <ToastContainer />
 
-                    <main className={`${darkTheme ? "bg-slate-900" : "bg-gray-200"} 
-                    mx-auto text-center w-full flex flex-col pl-12 pt-14`}>
+                    <main className={`bg-gray-200'} 
+                    mx-auto text-center w-full flex-1 flex-col pl-12 pt-14`}>
                         <section className="z-10">
                             {children}
                         </section>
