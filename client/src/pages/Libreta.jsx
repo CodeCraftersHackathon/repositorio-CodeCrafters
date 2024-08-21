@@ -1,13 +1,11 @@
 import { useState } from "react";
 
-
 export const Libreta = () => {
     const [materias, setMaterias] = useState([]);
     const [calificaciones, setCalificaciones] = useState([]);
 
     const [promedio, setPromedio] = useState(0);
     
-
     let calcularPromedio = () => {
         if (materias.length == 0) {
             return;
@@ -74,9 +72,6 @@ export const Libreta = () => {
                         </tr>
                     ))}
                 </table>
-
-                
-                
 
             </div>
         </div>
