@@ -5,6 +5,7 @@ import { useContext } from "react";
 import { PageContext } from "../../context/App.context";
 import { useNavigate } from "react-router-dom";
 import logo from "/logotipo.png";
+import { useToast } from "../../hooks/useToast";
 
 export const Header = () => {
 
