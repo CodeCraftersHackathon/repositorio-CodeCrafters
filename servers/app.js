@@ -1,11 +1,10 @@
 import express from "express"
 import cors from "cors"
 import morgan from "morgan"
-import { PORT } from "./server/config/config.js"
-import productRouter from "../routes/products.routes.js"
-import userRouter from "./server/routes/user.routes.js"
-import saleRouter from "../routes/sale.routes.js"
-import { dbConnection } from "./server/db/connectionDB.js"
+import { PORT } from "./src/config/config.js"
+import userRouter from "./src/routes/user.routes.js"
+import { dbConnection } from "./src/db/connectionDB.js"
+import iaRouter from "./src/routes/ia.routes.js"
 
 class Server {
 
@@ -24,15 +23,15 @@ class Server {
     }
 
     middlewares() {
+        this.app.use(express.json());
         this.app.use(cors());
         this.app.use(morgan("dev"));
-        this.app.use(express.json());
+
     }
 
     routes() {
-        this.app.use("/api", productRouter);
         this.app.use("/api", userRouter);
-        this.app.use("/api", saleRouter);
+        this.app.use('/api',iaRouter )
     }
 
     listen() {
