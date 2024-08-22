@@ -1,7 +1,17 @@
 import { useEffect, useState } from "react";
 import { Layout } from "../../components/layout/Layout.component";
+import { apiFetchFunction } from "../../hooks/fetchApi";
+import { useForm } from "../../hooks/newForm"
+
 
 export const ToDo = () => {
+
+    const formValues = {
+        todo: ""
+    }
+
+    const { values, handleChange, handleSubmit } = useForm(formValues)
+
     const [tareas, setTareas] = useState([]);
     const [fechas, setFechas] = useState([]);
     const [editMode, setEditMode] = useState(false);
@@ -35,35 +45,42 @@ export const ToDo = () => {
         setEditMode(!editMode);
     };
 
+    const onSubmit = async () => {
+        const response = await apiFetchFunction("/todos", "POST", values)
+        console.log(response);
+    }
+
+    console.log(values);
+
     return (
         <Layout>
-            <div className="flex flex-col justify-center items-center px-0 py-5 gap-0">
+            <div className="flex flex-col justify-center items-center px-0 py-5 gap-0 text-white">
                 <h1 className="text-3xl font-poppins">Mis tareas</h1>
                 <div className="flex flex-col justify-center items-center">
-                    <div className="py-3">
+                    <form className="py-3" onSubmit={handleSubmit(onSubmit)}>
                         <input
                             type="text"
-                            placeholder="tareas"
-                            id="tareas"
-                            className="border-b-2 border-slate-400 p-2 h-10"
+                            onChange={handleChange}
+                            placeholder="tarea por hacer"
+                            id="todo"
+                            name="todo"
+                            className="border-b-2 border-slate-400 p-2 h-10 text-black"
                         />
                         <input
                             type="date"
                             placeholder="fechas"
                             id="fechas"
-                            className="border-b-2 border-slate-400 p-2 h-10"
+                            className="border-b-2 border-slate-400 p-2 h-10 text-black"
                         />
                         <button
                             className="bg-slate-400 hover:bg-slate-500 text-white font-bold py-2 px-4 rounded"
-                            onClick={() => {
-                                setTareas([...tareas, document.getElementById("tareas").value]);
-                                setFechas([...fechas, document.getElementById("fechas").value]);
-
-                            }}
                         >
                             Agregar
                         </button>
-                    </div>
+                    </form>
+
+
+
                     <table className="border w-1/2">
                         <thead>
                             <tr className="border">
