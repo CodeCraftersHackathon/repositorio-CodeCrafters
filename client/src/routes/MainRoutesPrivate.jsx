@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom"
+import { Libreta } from "../pages/authPages/Libreta"
 
 
 export const MainRoutesPrivate = () => {
@@ -8,6 +9,9 @@ export const MainRoutesPrivate = () => {
     return (
         <>
             <Routes>
+
+                <Route path="/libreta" element={<Libreta />} />
+
             </Routes>
         </>
     )

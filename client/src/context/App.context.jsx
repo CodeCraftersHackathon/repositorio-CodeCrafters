@@ -37,7 +37,7 @@ export const PageContextProvider = ({ children }) => {
 
             console.log(login);
 
-            if (login.status == 200) {
+            if (login.status == 201) {
                 localStorage.setItem("token", login.token);
                 dispatch({
                     type: types.LOGIN,

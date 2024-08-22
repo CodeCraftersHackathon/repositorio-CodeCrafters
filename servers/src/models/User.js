@@ -43,7 +43,7 @@ UserSchema.statics.createDefaultAdmin = async function () {
     if (!adminExists) {
         // ! Crear un nuevo usuario "ADMIN" con la contraseña "0000"
         const admin = new User({
-            name: "ADMIN",
+            userName: "ADMIN",
             password: "0000",
             email: "adminEmail@gmail.com",
             role: "ADMIN"

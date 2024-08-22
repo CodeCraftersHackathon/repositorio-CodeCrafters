@@ -25,7 +25,6 @@ export const Login = () => {
         if (loged.success === true) {
             useToast(200, "¡Login exitoso!");
             localStorage.setItem("username", values.user);
-            navigate('/pantalla1')
         } else {
             useToast(400, "¡Error de Login!");
         }
@@ -56,7 +55,7 @@ export const Login = () => {
                         value={values?.password}
                         onChange={handleChange}
                         placeholder='Contraseña'
-                        type="text"
+                        type="password"
                         className="bg-gray-700 border border-gray-600 rounded p-2 text-gray-200 focus:outline-none focus:ring focus:ring-blue-700"
                         required
                     />
