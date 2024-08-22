@@ -9,7 +9,7 @@ alias deactivate 'test $?_OLD_VIRTUAL_PATH != 0 && setenv PATH "$_OLD_VIRTUAL_PA
 # Unset irrelevant variables.
 deactivate nondestructive
 
-setenv VIRTUAL_ENV "/home/hecker/Escritorio/Code-Train/services/ServersAI/serverGemini/env"
+setenv VIRTUAL_ENV "/home/hecker/Escritorio/repositorio-CodeCrafters/servers/serverPython/serverGemini/env"
 
 set _OLD_VIRTUAL_PATH="$PATH"
 setenv PATH "$VIRTUAL_ENV/bin:$PATH"

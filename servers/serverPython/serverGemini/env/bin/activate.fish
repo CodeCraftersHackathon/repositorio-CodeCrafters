@@ -33,7 +33,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/home/hecker/Escritorio/Code-Train/services/ServersAI/serverGemini/env"
+set -gx VIRTUAL_ENV "/home/hecker/Escritorio/repositorio-CodeCrafters/servers/serverPython/serverGemini/env"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH

@@ -14,12 +14,12 @@
 
     // Hacer la solicitud al servidor
     console.log('Haciendo la solicitud al servidor');
-    const response = await fetch('http://localhost:3000/api/mcgenerate', {
+    const response = await fetch('http://localhost:8000/consultas/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({tema: 'funciones javascript'})
+      body: JSON.stringify({tema: 'revolución de mayo'})
     });
 
     // Leer los datos progresivamente y actualizar el contenido
