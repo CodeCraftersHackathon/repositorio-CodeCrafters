@@ -5,6 +5,7 @@ const activityIaCtrl = new ActivityIaCtrl();
 const router = Router();
 
 router.post("/mcgenerate",activityIaCtrl.generateActivityChoise.bind(activityIaCtrl));
+router.post("/questioncorrection", activityIaCtrl.correctionQuestion.bind(activityIaCtrl));
 
 export default router;
 
