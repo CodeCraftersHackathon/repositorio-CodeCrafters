@@ -19,7 +19,7 @@ class TodoCtrl {
 
   async getTodos(req, res) {
     try {
-      const token = req.headers["authorization"];
+      const token = req.headers["authorization"].split(" ")[1];
       const decoded = decodedToken(token);
       const userId = decoded.id;
       const todos = await this.todoService.getAll({
@@ -43,7 +43,7 @@ class TodoCtrl {
 
   async createTodo(req, res) {
     try {
-      const token = req.headers["authorization"];
+      const token = req.headers["authorization"].split(" ")[1];
       const decoded = decodedToken(token);
       req.body.userId = decoded.id;
       const body = req.body;
@@ -137,7 +137,7 @@ class TodoCtrl {
   }
   async deleteALl() {
     try {
-      const token = req.headers["authorization"];
+      const token = req.headers["authorization"].split(" ")[1];
       const decoded = decodedToken(token);
       const userId = decoded.id;
       const todos = await this.todoService.deleteAll({
