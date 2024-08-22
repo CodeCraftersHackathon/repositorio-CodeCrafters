@@ -1,10 +1,8 @@
 import { IoMenu } from "react-icons/io5";
 import { IoCloseSharp } from "react-icons/io5";
-import { FiSun } from "react-icons/fi";
-import { FiMoon } from "react-icons/fi";
-import { useToggle } from "../hooks/useToggle"
+import { useToggle } from "../../hooks/useToggle"
 import { useContext } from "react";
-import { PageContext } from "../context/App.context";
+import { PageContext } from "../../context/App.context";
 import { useNavigate } from "react-router-dom";
 import logo from "/logotipo.png";
 
@@ -13,7 +11,7 @@ export const Header = () => {
     const navigate = useNavigate()
 
     const username = localStorage.getItem("username");
-    const { darkTheme, toggleTheme, state, logout } = useContext(PageContext)
+    const { state, logout } = useContext(PageContext)
     const { toggle: toggleMenu, handleToggle: handleToggleMenu } = useToggle()
 
     const handleLogout = () => {
@@ -43,21 +41,14 @@ export const Header = () => {
                     {/* //!LOGO */}
                     <div className='flex items-center -mr-10 font-gta space-x-1'>
 
-                        <img src={logo} alt="Logo CodeTrain" width={128} height={128} /> 
+                        <img src={logo} alt="Logo CodeTrain" width={128} height={128} />
 
                         <a onClick={() => navigate("/")} className='text-2xl font-bold cursor-pointer' style={{ fontFamily: "JetBrains Mono, monospace" }} title="Volver al inicio">
-                            
+
                         </a>
                     </div>
 
                     <div className='flex items-center'>
-                        {/* //!TEMA */}
-                        <button className={`rounded-full p-3 mr-4 transition-colors focus:ring-2 h-6 w-6 flex items-center justify-center hover:bg-slate-100 border-2 bg-white ${!darkTheme ? "focus:ring-yellow-200 hover:bg-indigo-400" : "focus:ring-indigo-200 hover:bg-yellow-300"}`} onClick={() => toggleTheme(!darkTheme)}>
-
-                            <i className={`${!darkTheme ? "text-yellow-500" : "text-indigo-600"} text-xl`} >
-                                {!darkTheme ? < FiSun /> : <FiMoon />}
-                            </i>
-                        </button>
 
                         {/* //! USER */}
                         {state.logged ? (
@@ -92,8 +83,8 @@ export const Header = () => {
                     </li>
 
                     <li className="py-2">
-                        <a href="#" onClick={() => navigate("/courses")} className="group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-ipf-green-l before:transition before:duration-300 hover:before:origin-left hover:before:scale-x-100  px-3">
-                            <span className="relative text-white group-hover:text-border font-semibold">Cursos</span>
+                        <a href="#" onClick={() => navigate("/auth/todo")} className="group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-ipf-green-l before:transition before:duration-300 hover:before:origin-left hover:before:scale-x-100  px-3">
+                            <span className="relative text-white group-hover:text-border font-semibold">ToDo</span>
                         </a>
                     </li>
 
@@ -101,7 +92,7 @@ export const Header = () => {
                         (
                             <>
                                 <li className="py-2">
-                                    <a href="#" onClick={() => navigate("/auth/profile")} className="group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-ipf-green-l before:transition before:duration-300 hover:before:origin-left hover:before:scale-x-100  px-3">
+                                    <a href="#" onClick={() => navigate("/auth/perfil")} className="group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-ipf-green-l before:transition before:duration-300 hover:before:origin-left hover:before:scale-x-100  px-3">
                                         <span className="relative text-white group-hover:text-border font-semibold">Profile</span>
                                     </a>
                                 </li>

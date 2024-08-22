@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Layout } from "../../components/Layout.component";
+import { Layout } from "../../components/layout/Layout.component";
 
 export const Libreta = () => {
     const [materias, setMaterias] = useState([]);

@@ -26,17 +26,6 @@ export const Footer = () => {
     return (
         <div className={`bg-blue-900 py-6 space-y-4`}>
             <div className="container mx-auto px-4 max-w-4xl">
-                <div className="text-center text-sm text-white pb-8">
-                    <p className="mb-2">
-                        ¿Quieres saber más sobre nosotros?{" "}
-                        <a
-                            href="/about"
-                            className="text-blue-500 hover:text-blue-300 transition-colors duration-300 hover:underline"
-                        >
-                            ¡Entra aquí!
-                        </a>
-                    </p>
-                </div>
                 <ul className="flex justify-center items-center space-x-6 pb-4">
                     <li className="relative group">
                         <a

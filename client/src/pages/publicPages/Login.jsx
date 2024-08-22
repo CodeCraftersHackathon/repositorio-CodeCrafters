@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout } from '../../components/Layout.component'
+import { Layout } from '../../components/layout/Layout.component'
 import { useNavigate } from 'react-router-dom'
 import { GoogleLogin } from '@react-oauth/google';
 import { useForm } from "../../hooks/newForm"

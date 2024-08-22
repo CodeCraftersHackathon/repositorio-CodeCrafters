@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom"
 import { Libreta } from "../pages/authPages/Libreta"
+import { ToDo } from "../pages/authPages/ToDo"
 
 
 export const MainRoutesPrivate = () => {
@@ -11,6 +12,7 @@ export const MainRoutesPrivate = () => {
             <Routes>
 
                 <Route path="/libreta" element={<Libreta />} />
+                <Route path="/todo" element={<ToDo />} />
 
             </Routes>
         </>
