@@ -8,9 +8,8 @@ export const MainRoutesPublic = () => {
     return (
         <>
             <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/registro" element={<Register />} />
+
+                <Route path="/libreta" element={<Libreta />} />
 
             </Routes>
         </>

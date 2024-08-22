@@ -5,8 +5,13 @@ import { FiMoon } from "react-icons/fi";
 import { useToggle } from "../hooks/useToggle"
 import { useContext } from "react";
 import { PageContext } from "../context/App.context";
+<<<<<<< HEAD
 import { useNavigate } from "react-router-dom"
 import { useToast } from "../hooks/useToast";
+=======
+import { useNavigate } from "react-router-dom";
+import logo from "../assets/logo/logotipo.png";
+>>>>>>> aquinoalejandro
 
 export const Header = () => {
 
@@ -43,10 +48,18 @@ export const Header = () => {
                     {/* //!LOGO */}
                     <div className='flex items-center -mr-10 font-gta space-x-1'>
 
+<<<<<<< HEAD
                         <h2 className='text-lg font-bold' style={{ fontFamily: "JetBrains Mono, monospace" }}>
                             StudyMate
                         </h2>
 
+=======
+                        <img src={logo} alt="Logo CodeTrain" width={128} height={128} /> 
+
+                        <a onClick={() => navigate("/")} className='text-2xl font-bold cursor-pointer' style={{ fontFamily: "JetBrains Mono, monospace" }} title="Volver al inicio">
+                            
+                        </a>
+>>>>>>> aquinoalejandro
                     </div>
 
                     <div className='flex items-center'>
