@@ -8,9 +8,9 @@ export const MainRoutesPublic = () => {
     return (
         <>
             <Routes>
-
-                <Route path="/libreta" element={<Libreta />} />
-
+                <Route path="/" element={<Index />} />
+                <Route path="/registro" element={<Register />} />
+                <Route path="/login" element={<Login />} />
             </Routes>
         </>
     )
