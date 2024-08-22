@@ -1,81 +1,93 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>Consultas</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-
-    <!-- Bootstrap CSS v5.2.1 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
-
-    <style>
-        #resultados {
-            width: 100%;
-            height: 500px;
-            border: 1px solid #ccc;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Respuesta Progresiva</title>
+<style>
+  #respuesta{
+    white-space: pre-wrap;
+    font-family: monospace;
+    font-size: 1.2rem;
+  }
+</style>
 </head>
-
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="card p-0">
-                <div class="card-header">
-                    <h1>Consultas</h1>
-                </div>
-                <div class="card-body">
-                    <form id="formConsulta">
-                        <textarea class="form-control" name="consulta" id="" cols="30" rows="10"></textarea>
-                        <button class="btn btn-primary mt-3" type="submit">Enviar</button>
-                    </form>
-                </div>
-            </div>
-            <div class="card p-0 mt-2">
-                <div class="card-header">
-                    <h1>Resultados</h1>
-                </div>
-                <div class="card-body">
-                    <iframe id="resultados" src="about:blank"></iframe>
-                </div>
-            </div>
-        </div>
-    </div>
+<pre id="respuesta"></pre>
 
-    <!-- Showdown library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js"></script>
+<script>
 
-    <!-- Bootstrap JavaScript Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    const consulta= `
+    Pregunta: ¿Cuándo comenzó la Revolución Industrial en Argentina?
 
-    <script>
-        const formConsulta = document.getElementById('formConsulta');
-        const resultados = document.getElementById('resultados');
+    Respuesta:  La Revolución Industrial en Argentina comenzó a mediados del siglo XIX, especialmente durante la presidencia de Nicolás Avellaneda.
 
-        formConsulta.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            resultados.srcdoc = `
-            <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-            `;
-            const formData = new FormData(formConsulta);
-            const consulta = formData.get('consulta');
-            const response = await fetch('http://localhost:8000/consultas', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({consulta, theme: 'sin tema'})
-            });
-            console.log(response);
-            const data = await response.json();
-            console.log(data);
+Pregunta: ¿Cuál fue uno de los principales sectores afectados por la Revolución Industrial en Argentina?
 
-            resultados.srcdoc = data;
-        });
-    </script>
+    Respuesta : El sector agrícola fue el principal afectado, ya que las nuevas tecnologías hicieron obsoletos muchos métodos tradicionales.
+
+Pregunta: ¿Qué papel tuvo el ferrocarril en la Revolución Industrial argentina?
+
+    Respuesta : El ferrocarril tuvo poco impacto en la Revolución Industrial, ya que las rutas marítimas seguían siendo el principal medio de transporte.
+
+Pregunta: ¿Qué impacto tuvo la inmigración europea en la Revolución Industrial en Argentina?
+
+    Respuesta: La inmigración europea proporcionó mano de obra calificada y contribuyó al desarrollo de nuevas industrias, como la metalurgia y la construcción.
+
+Pregunta: ¿Cuál fue uno de los principales cambios sociales durante la Revolución Industrial en Argentina?
+
+    Respuesta : El principal cambio social fue la disminución de la educación y el aumento de la pobreza en áreas rurales.
+
+Pregunta: ¿Qué importancia tuvo la industria de la construcción durante la Revolución Industrial en Argentina?
+
+    Respuesta : La industria de la construcción fue menos relevante, ya que la mayoría de las inversiones se dirigieron hacia la agricultura.
+
+Pregunta: ¿Cómo influyó la política gubernamental en el desarrollo de la Revolución Industrial en Argentina?
+
+    Respuesta : El gobierno promovió políticas de libre comercio y fomentó la inversión en infraestructura para apoyar el crecimiento industrial.
+
+Pregunta: ¿Qué papel desempeñaron los sindicatos durante la Revolución Industrial en Argentina?
+
+    Respuesta : Los sindicatos jugaron un papel importante en la defensa de los derechos de los trabajadores y en la mejora de las condiciones laborales durante este período.
+
+Pregunta: ¿Cuál fue una de las principales fuentes de energía utilizadas durante la Revolución Industrial en Argentina?
+
+    Respuesta: La principal fuente de energía utilizada fue el vapor, especialmente para el funcionamiento de maquinaria en fábricas y trenes.
+
+Pregunta: ¿Cómo afectó la Revolución Industrial a la economía agrícola en Argentina?
+
+    Respuesta : La Revolución Industrial facilitó la modernización de la agricultura mediante la incorporación de maquinaria y técnicas más eficientes, aumentando la producción.
+    
+    `
+  // Función para cargar la respuesta progresivamente. 
+  async function cargarRespuesta() {
+    const responseContainer = document.getElementById('respuesta');
+
+    // Hacer la solicitud al servidor
+    console.log('Haciendo la solicitud al servidor');
+    const response = await fetch('http://localhost:3000/api/questioncorrection', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({consulta: consulta})
+    });
+
+    // Leer los datos progresivamente y actualizar el contenido
+
+    const reader = response.body.getReader();
+    let decoder = new TextDecoder();
+    let chunk = await reader.read();
+    while (!chunk.done) {
+      const texto = decoder.decode(chunk.value, { stream: true });
+      responseContainer.textContent += texto;
+      console.log(texto);
+      chunk = await reader.read();
+    }
+  }
+
+  // Llamar a la función para cargar la respuesta progresivamente
+  cargarRespuesta();
+</script>
 </body>
 </html>
