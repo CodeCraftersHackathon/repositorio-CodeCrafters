@@ -6,7 +6,7 @@ export const getUserById = async (req, res) => {
         const user = await UserService.findOne(req.params.id);
         if (!user) {
             throw ({
-                statusCode: 404,
+                status: 404,
                 status: "Not Found",
                 message: "No se encontro al usuario",
             });
@@ -14,7 +14,8 @@ export const getUserById = async (req, res) => {
         return res.json(user)
 
     } catch (error) {
-        return res.status(error.statusCode || 500).json({
+        return res.status(error.status || 500).json({
+            status: 500,
             message: error.message,
             status: error.status,
         })
@@ -26,7 +27,7 @@ export const getUserByNameOrEmail = async (req, res) => {
         const user = await UserService.findByNameOrEmail(req.body);
         if (!user) {
             throw ({
-                statusCode: 404,
+                status: 404,
                 status: "Not Found",
                 message: "No se encontro al usuario",
             });
@@ -34,7 +35,8 @@ export const getUserByNameOrEmail = async (req, res) => {
         return res.json(user)
 
     } catch (error) {
-        return res.status(error.statusCode || 500).json({
+        return res.status(error.status || 500).json({
+            status: 500,
             message: error.message,
             status: error.status,
         })
@@ -45,10 +47,12 @@ export const createStudent = async (req, res) => {
     try {
         await UserService.createUser(req.body)
         return res.status(201).json({
+            status: 201,
             message: 'Estudiante registrado'
         })
     } catch (error) {
-        return res.status(error.statusCode || 500).json({
+        return res.status(error.status || 500).json({
+            status: 500,
             message: error.message,
             status: error.status
         })
@@ -59,10 +63,12 @@ export const deleteUser = async (req, res) => {
     try {
         await UserService.delete(req.params.id)
         return res.status(201).json({
+            status: 204,
             message: 'Usuario Eliminado'
         })
     } catch (error) {
-        return res.status(error.statusCode || 500).json({
+        return res.status(error.status || 500).json({
+            status: 500,
             message: error.message,
             status: error.status
         })
@@ -76,10 +82,12 @@ export const login = async (req, res) => {
         console.log(token);
 
         return res.status(201).json({
+            status: 201,
             message: 'Login correcto', token
         })
     } catch (error) {
-        return res.status(error.statusCode || 500).json({
+        return res.status(error.status || 500).json({
+            status: 500,
             message: error.message,
             status: error.status
         })
@@ -91,11 +99,30 @@ export const createFakeUser = async (req, res) => {
         const users = await UserService.insertManyFake(fakeUser)
 
         return res.status(201).json({
+            status: 201,
             message: users
         })
-        
+
     } catch (error) {
-        return res.status(error.statusCode || 500).json({
+        return res.status(error.status || 500).json({
+            status: 500,
+            message: error.message,
+            status: error.status
+        })
+    }
+}
+
+export const createStudentGoogle = async (req, res) => {
+    try {
+        const token = await UserService.createUserGoogle(req.body)
+        return res.status(201).json({
+            token
+            // status: 201,
+            // message: 'Estudiante registrado'
+        })
+    } catch (error) {
+        return res.status(error.status || 500).json({
+            status: 500,
             message: error.message,
             status: error.status
         })

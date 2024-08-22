@@ -15,7 +15,6 @@ export const generateToken = (user) => {
     return token;
 }
 
-
 export const verifyToken = (req, res, next) => {
     // ! Obtener el token de los headers de la solicitud
     const token = req.headers['authorization'];
@@ -59,3 +58,8 @@ export const verifyAdmin = (req, res, next) => {
         return res.status(403).json({ message: 'Acceso denegado. Requiere rol de ADMIN.' });
     }
 };
+
+export const decodeGoogleToken = (token) => {
+    const decoded = jwt.decode(token, { complete: true })
+    console.log(decoded);
+}

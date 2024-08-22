@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom"
-
-import { Libreta } from "../pages/publicPages/Libreta"
-
+import { Login } from "../pages/publicPages/Login"
+import { Register } from "../pages/publicPages/Register"
+import { Index } from "../pages/publicPages/Index"
 
 export const MainRoutesPublic = () => {
 
