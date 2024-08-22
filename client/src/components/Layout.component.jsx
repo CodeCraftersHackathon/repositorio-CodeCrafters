@@ -32,8 +32,8 @@ export const Layout = ({ children }) => {
 
     return (
         <>
-            <div>
-                <div className="flex flex-col h-full max-h-screen w-full" >
+            <div className="h-screen">
+                <div className="flex flex-col h-full min-h-screen w-full" >
 
                     <Header />
                     <ToastContainer />
