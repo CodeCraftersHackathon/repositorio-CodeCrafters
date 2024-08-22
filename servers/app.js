@@ -5,6 +5,7 @@ import { PORT } from "./src/config/config.js"
 import userRouter from "./src/routes/user.routes.js"
 import { dbConnection } from "./src/db/connectionDB.js"
 import iaRouter from "./src/routes/ia.routes.js"
+import lensRouter from "./src/routes/lens.routes.js"
 
 class Server {
 
@@ -32,6 +33,9 @@ class Server {
     routes() {
         this.app.use("/api", userRouter);
         this.app.use('/api',iaRouter )
+        this.app.use('/api',lensRouter )
+
+
     }
 
     listen() {
