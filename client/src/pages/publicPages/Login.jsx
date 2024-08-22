@@ -1,6 +1,7 @@
 import React from 'react'
 import { Layout } from '../../components/Layout.component'
 import { useNavigate } from 'react-router-dom'
+import { GoogleLogin } from '@react-oauth/google';
 
 export const Login = () => {
 
@@ -30,10 +31,12 @@ export const Login = () => {
 
                 </div>
 
-                <div className='space-y-5'>
+                <div className='space-y-5 flex flex-col justify-center items-center'>
                     <p>¿Aun no tienes una cuenta? <span onClick={() => navigate("/registro")} className='hover:text-blue-500 cursor-pointer'>Registrarse</span></p>
 
                     <button className='p-1 bg-blue-500 rounded-md border-white border-2 hover:bg-blue-800'>Registrarse</button>
+
+                    <GoogleLogin />
                 </div>
 
             </div>
