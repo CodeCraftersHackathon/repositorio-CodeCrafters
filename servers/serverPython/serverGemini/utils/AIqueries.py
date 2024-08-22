@@ -1,31 +1,3 @@
-def ai_queries_practices(tema, theme):
-    return f"""
-    Actúa como un Mentor experto y genera una actividad práctica sobre el tema: {tema}. La actividad debe cumplir con las siguientes especificaciones:
-
-    1. **Descripción**: Proporciona un enunciado claro y conciso que describa el problema a resolver. Asegúrate de que esté relacionado con {theme}.
-    2. **Dificultad**: Ajusta la dificultad de la actividad según la complejidad del tema y el nivel de conocimientos esperado.
-    3. **Pista**: Ofrece una pista relevante que ayude al estudiante a entender cómo abordar el problema, sin proporcionar la solución completa.
-    4. **Motivación**: Anima al estudiante a resolver el problema y resalta la importancia de adquirir esta habilidad.
-
-    Sigue este formato:
-
-    # Actividad: Resolución de Problemas en {theme}
-
-    ## Descripción
-    En esta actividad, se te presenta un desafío relacionado con {tema}. Debes desarrollar un algoritmo o un fragmento de código para resolver el problema descrito a continuación.
-
-    ## Especificaciones
-    - Describe el problema detalladamente, incluyendo ejemplos si es necesario.
-    - Lista las restricciones y requerimientos que debe cumplir la solución.
-    - Aclara que la solución no debe ser una función específica, sino un enfoque general o un algoritmo.
-
-    ## Pista
-    Ofrece una pista que puede incluir técnicas, algoritmos o conceptos clave relevantes para la solución del problema.
-
-    ## Motivación
-    ¡Puedes hacerlo! Resolver este problema te ayudará a mejorar tus habilidades en {theme}. Tómate el tiempo necesario para comprender el problema y explorar diferentes enfoques. Cada intento te acerca más a la solución.
-
-    """
 
 
 def ai_queries_selective(theme):
@@ -33,7 +5,7 @@ def ai_queries_selective(theme):
     Hola, necesito que me respondas en un formato específico para poder armar una función que extraiga los elementos del string y los convierta en un objeto. Es importante que sigas **exactamente** la estructura que se describe a continuación, y que los 'Seleccionables' no contengan '**' en ninguna parte.
 
     ## Explicación:
-    Proporciona una explicación detallada sobre el tema "{theme} Javascript". La explicación debe comenzar justo después de '## Explicación:' y debe estar relacionada con "{theme}". No incluyas ningún otro contenido fuera de la explicación en esta sección.
+    Proporciona una explicación detallada sobre el tema "{theme}". La explicación debe comenzar justo después de '## Explicación:' y debe estar relacionada con "{theme}". No incluyas ningún otro contenido fuera de la explicación en esta sección.
 
     ## Preguntas:
     1. Escribe una pregunta sobre "{theme}" aquí.
