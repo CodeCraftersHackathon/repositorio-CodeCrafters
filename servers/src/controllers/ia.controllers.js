@@ -5,7 +5,7 @@ const url = 'https://ebf0-138-121-113-27.ngrok-free.app/api/generate';
 class ActivityIaCtrl {
   constructor() {}
     async generateActivityChoise(req, res) {
-      const consulta = req.body;
+      const {consulta} = req.body;
         try {
           const peticion = await fetch(url, {
             method: "POST",
@@ -15,7 +15,6 @@ class ActivityIaCtrl {
             body: JSON.stringify({
               model: "cm-llama3.1",
               prompt: consulta,
-              num_keep: 1,
             }),
           });
     
