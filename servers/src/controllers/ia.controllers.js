@@ -1,14 +1,11 @@
-import { URL_IA } from "../config/config.js";
+//import { URL_IA } from "../config/config.js";
 
-const url = URL_IA;
+const url = 'https://ebf0-138-121-113-27.ngrok-free.app/api/generate';
 
 class ActivityIaCtrl {
   constructor() {}
     async generateActivityChoise(req, res) {
-        const token = req.body.token;
-        const { context, courseId } = req.body;
-        const consulta = context + "JavaScript";
-    
+      const consulta = req.body;
         try {
           const peticion = await fetch(url, {
             method: "POST",
