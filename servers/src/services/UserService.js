@@ -1,5 +1,5 @@
 import { User } from "../models/User.js";
-import { generateToken, verifyToken } from "../helpers/jwt.js"
+import { generateToken, verifyToken, decodeGoogleToken } from "../helpers/jwt.js"
 import { verifyPassword } from "../helpers/validatePassword.js"
 
 class UserService {
@@ -46,7 +46,10 @@ class UserService {
 
     async createUser(user) {
         try {
-            const existUser = await this.findByNameOrEmail({ user: user.name })
+
+            console.log(user);
+
+            const existUser = await this.findByNameOrEmail({ user: user.userName })
 
             if (!existUser) {
                 if (!user.role) {
@@ -56,6 +59,25 @@ class UserService {
                 throw new Error("El nombre de usuario ya esta ocupado");
             }
         } catch (error) {
+            throw new Error(error.message || "Error al crear usuario");
+        }
+    }
+
+
+    async createUserGoogle(token) {
+        try {
+            // const existUser = await this.findByNameOrEmail({ user: token.name })
+
+            // if (!existUser) {
+            // if (!user.role) {
+            return decodeGoogleToken(token)
+            // User.create({ ...user, role: "STUDENT" });
+            // }
+            // } else {
+            // throw new Error("El nombre de usuario ya esta ocupado");
+        }
+        // } 
+        catch (error) {
             throw new Error(error.message || "Error al crear usuario");
         }
     }
@@ -105,7 +127,7 @@ class UserService {
                 //! Inserta múltiples documentos en la colección
                 await User.insertMany(data);
                 return 'Datos insertados correctamente';
-            }else{
+            } else {
                 throw new Error("No es posible insertar tantos usuarios");
             }
 

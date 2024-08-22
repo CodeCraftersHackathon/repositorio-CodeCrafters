@@ -4,10 +4,10 @@ import { apiFetchFunction } from "../hooks/fetchApi";
 import { useToggle } from "../hooks/useToggle"
 import { types } from "../types/types";
 
-// Este almacena los datos
+// ! Este almacena los datos
 export const PageContext = createContext();
 
-// Este engloba al resto de componentes
+// ! Este engloba al resto de componentes
 export const PageContextProvider = ({ children }) => {
 
     // ! AUTH
@@ -35,7 +35,9 @@ export const PageContextProvider = ({ children }) => {
         try {
             const login = await apiFetchFunction("/login", "POST", values);
 
-            if (login.status == 200) {
+            console.log(login);
+
+            if (login.status == 201) {
                 localStorage.setItem("token", login.token);
                 dispatch({
                     type: types.LOGIN,

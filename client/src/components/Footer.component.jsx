@@ -97,7 +97,7 @@ export const Footer = () => {
                 </ul>
                 <div className="text-center text-sm text-white mb-4">
                     <p>
-                        © 2024 Code_Train todos los derechos reservados.
+                        © 2024 StudyMate todos los derechos reservados.
                     </p>
                 </div>
                 {showScrollToTop && (

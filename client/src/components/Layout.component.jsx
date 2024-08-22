@@ -32,22 +32,16 @@ export const Layout = ({ children }) => {
 
     return (
         <>
-            <div className="">
-                <NavBar />
-
-                <div className="flex flex-col h-screen w-full" >
+            <div className="h-screen">
+                <div className="flex flex-col h-full min-h-screen w-full" >
 
                     <Header />
                     <ToastContainer />
-
-                    <main className={`${darkTheme ? "bg-slate-900" : "bg-gray-200"} 
-                    mx-auto text-center w-full flex flex-col pl-12 pt-14`}>
-                        <section className="z-10">
-                            {children}
-                        </section>
+                    <main className={`flex flex-grow text-center bg-slate-800 min-w-screen z-10 p-10 justify-center items-center'}`}>
+                        {children}
                     </main>
-                    <Footer />
                 </div >
+                <Footer />
             </div>
         </>
     )

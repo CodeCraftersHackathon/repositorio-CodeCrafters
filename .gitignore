@@ -1,4 +1,5 @@
 /servers/.env
+/servers/node_modules
 /servers/serverPython/serverGemini/__pychache__
 /servers/serverPython/serverGemini/env
 /servers/serverPython/serverGemini/clave.py
