@@ -18,46 +18,12 @@
 <script>
 
     const consulta= `
-    Pregunta: ¿Cuándo comenzó la Revolución Industrial en Argentina?
+    Durante la Primera Revolución Industrial, hubo una migración masiva de campesinos hacia las ciudades, donde encontraban oportunidad de subsistir como trabajadores asalariados en las nuevas fábricas. Como consecuencia de estos cambios, se definió un nuevo tipo de sociedad, caracterizado por la oposición entre la burguesía (clase social dueña de las fábricas y el capital) y el proletariado (clase social que depende del trabajo asalariado para su subsistencia). 
 
-    Respuesta:  La Revolución Industrial en Argentina comenzó a mediados del siglo XIX, especialmente durante la presidencia de Nicolás Avellaneda.
+La Segunda Revolución Industrial se caracterizó por el aumento de la productividad industrial a partir de la introducción de la cadena de montaje (separación del proceso productivo en diferentes etapas) y  nuevas fuentes de energía. En esta segunda etapa, Alemania protagonizó el mayor crecimiento económico, y las transformaciones se extendieron a Estados Unidos y Japón.
 
-Pregunta: ¿Cuál fue uno de los principales sectores afectados por la Revolución Industrial en Argentina?
 
-    Respuesta : El sector agrícola fue el principal afectado, ya que las nuevas tecnologías hicieron obsoletos muchos métodos tradicionales.
 
-Pregunta: ¿Qué papel tuvo el ferrocarril en la Revolución Industrial argentina?
-
-    Respuesta : El ferrocarril tuvo poco impacto en la Revolución Industrial, ya que las rutas marítimas seguían siendo el principal medio de transporte.
-
-Pregunta: ¿Qué impacto tuvo la inmigración europea en la Revolución Industrial en Argentina?
-
-    Respuesta: La inmigración europea proporcionó mano de obra calificada y contribuyó al desarrollo de nuevas industrias, como la metalurgia y la construcción.
-
-Pregunta: ¿Cuál fue uno de los principales cambios sociales durante la Revolución Industrial en Argentina?
-
-    Respuesta : El principal cambio social fue la disminución de la educación y el aumento de la pobreza en áreas rurales.
-
-Pregunta: ¿Qué importancia tuvo la industria de la construcción durante la Revolución Industrial en Argentina?
-
-    Respuesta : La industria de la construcción fue menos relevante, ya que la mayoría de las inversiones se dirigieron hacia la agricultura.
-
-Pregunta: ¿Cómo influyó la política gubernamental en el desarrollo de la Revolución Industrial en Argentina?
-
-    Respuesta : El gobierno promovió políticas de libre comercio y fomentó la inversión en infraestructura para apoyar el crecimiento industrial.
-
-Pregunta: ¿Qué papel desempeñaron los sindicatos durante la Revolución Industrial en Argentina?
-
-    Respuesta : Los sindicatos jugaron un papel importante en la defensa de los derechos de los trabajadores y en la mejora de las condiciones laborales durante este período.
-
-Pregunta: ¿Cuál fue una de las principales fuentes de energía utilizadas durante la Revolución Industrial en Argentina?
-
-    Respuesta: La principal fuente de energía utilizada fue el vapor, especialmente para el funcionamiento de maquinaria en fábricas y trenes.
-
-Pregunta: ¿Cómo afectó la Revolución Industrial a la economía agrícola en Argentina?
-
-    Respuesta : La Revolución Industrial facilitó la modernización de la agricultura mediante la incorporación de maquinaria y técnicas más eficientes, aumentando la producción.
-    
     `
   // Función para cargar la respuesta progresivamente. 
   async function cargarRespuesta() {
@@ -65,7 +31,7 @@ Pregunta: ¿Cómo afectó la Revolución Industrial a la economía agrícola en 
 
     // Hacer la solicitud al servidor
     console.log('Haciendo la solicitud al servidor');
-    const response = await fetch('http://localhost:3000/api/questioncorrection', {
+    const response = await fetch('http://localhost:3000/api/generateResumen', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
