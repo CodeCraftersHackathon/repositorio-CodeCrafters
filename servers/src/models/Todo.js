@@ -10,6 +10,10 @@ const TodoSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "users",
     },
+    limitDate: {
+      type: String,
+      required: false,
+    },
   },
   {
     timestamps: true,
