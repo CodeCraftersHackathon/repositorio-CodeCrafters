@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import { Layout } from "../../components/layout/Layout.component"
+import { Graph } from '../../components/Graph.component';
 
 
 
@@ -104,6 +105,7 @@ export const Perfil = () => {
             </tr>
           </tbody>
         </table>
+        <Graph></Graph>
       </div>
     </div>
   </div>

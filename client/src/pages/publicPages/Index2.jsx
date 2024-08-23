@@ -2,6 +2,7 @@ import React from 'react'
 import { Layout } from '../../components/layout/Layout.component'
 import { Cards } from "../../components/Cards.component"
 import { useNavigate } from 'react-router-dom'
+import { Graph } from "../../components/Graph.component"
 
 export const Index = () => {
 
@@ -10,6 +11,7 @@ export const Index = () => {
 
     return (
         <Layout>
+        <Graph />
             <div className='flex flex-col space-y-5'>
                 {name &&
                     <>
