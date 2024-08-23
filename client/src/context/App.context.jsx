@@ -54,7 +54,7 @@ export const PageContextProvider = ({ children }) => {
 
     const logout = () => {
         localStorage.removeItem("token");
-        localStorage.removeItem("userName");
+        localStorage.removeItem("username");
         dispatch({
             type: types.LOGOUT,
         });

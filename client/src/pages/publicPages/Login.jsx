@@ -33,7 +33,7 @@ export const Login = () => {
     return (
         <Layout>
 
-            <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col border-2 border-white rounded-md text-white h-fit py-5 w-full px-10 space-y-5'>
+            <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col border-2 border-white rounded-md text-white h-fit py-5 max-w-xl px-10 space-y-5'>
                 <h2 className='font-semibold py-5 text-2xl
                 '>Iniciar Sesión</h2>
 
