@@ -55,70 +55,50 @@ export const Header = () => {
                                     className='h-6 w-6 rounded-full'
                                     src={"https://ui-avatars.com/api?background=random&name=" + username} alt="User-Icon"
                                 />
-                                <button onClick={handleLogout} className="group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-ipf-green-l before:transition before:duration-300 hover:before:origin-left hover:before:scale-x-100 px-3">
+                                <button onClick={handleLogout} className="group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-slate-400 before:transition before:duration-300 hover:before:origin-left hover:before:scale-x-100 px-3">
                                     <span className="relative text-white group-hover:text-border font-semibold">Cerrar Sesion</span>
                                 </button>
                             </div>
-                        ) : (                
-                            
-                            <div className={`py-3 hidden md:block relative cursor-pointer hover:bg-blue-950   transition duration-200`}>
-                            <a onClick={() => navigate("/login")} className="group relative px-3">
-                              <span className="relative text-white font-semibold">
-                                Iniciar Sesion
-                              </span>
-                            </a>
-                          </div>
-                             
+                        ) : (
+                            <button onClick={() => navigate("/login")} className="group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-slate-400 before:transition before:duration-300 hover:before:origin-left hover:before:scale-x-100 px-3">
+                                <span className="relative text-white group-hover:text-border font-semibold">Iniciar Sesion</span>
+                            </button>
                         )}
 
                     </div>
                 </section>
             </nav>
             {/* //! LINKS */}
-            <section className={`bg-blue-900 text-start  transition  duration-300 "translate-x-0" md:translate-x-0 md:duration-0 w-full z-40 static md:static
-                ${toggleMenu && "translate-x-[-100%] fixed"}`}>
-
-                <ul className={`${state.logged ? "grid-cols-3" : "grid-cols-2"} grid-rows-1 md:grid md:text-center`}>
-                <li className="py-2 md:hidden">
-                    <a href="#" onClick={() => navigate("/")} className="group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-ipf-green-l before:transition before:duration-300 hover:before:origin-left hover:before:scale-x-100  px-3">
-                    <span className="relative text-white group-hover:text-border font-semibold">Home</span>
-                    </a>
-                </li>
-                <li className="py-2 md:hidden">
-                    <a href="#" onClick={() => navigate("/auth/todo")} className="group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-ipf-green-l before:transition before:duration-300 hover:before:origin-left hover:before:scale-x-100  px-3">
-                    <span className="relative text-white group-hover:text-border font-semibold">ToDo</span>
-                    </a>
-                </li>
-                {state.logged ?
-                    (
-                    <li className={`py-2 md:block hidden`}>
-                        <a href="#" onClick={() => navigate("/auth/perfil")} className="group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-ipf-green-l before:transition before:duration-300 hover:before:origin-left hover:before:scale-x-100  px-3">
-                        <span className="relative text-white group-hover:text-border font-semibold">Profile</span>
-                        </a>
-                    </li>
-                    ) : ""
-                }
-
-                {!state.logged ?
-                    (
-                    <li className={`py-2 md:hidden`}>
-                        <a onClick={() => navigate("/login")} className="group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-ipf-green-l before:transition before:duration-300 hover:before:origin-left hover:before:scale-x-100 px-3">
-                            <span className="relative text-white group-hover:text-border font-semibold">Iniciar Sesion</span>
-                        </a> 
-                    </li>
-                    ) : ""
-                }
-         
-
-                    {/* //! USER */}
-    
 
 
+            {state.logged ?
+                (
+                    <>
+                        <section className={`bg-blue-900 text-start py-1 pb-1 border-t  transition  duration-300 "translate-x-0" md:translate-x-0 md:duration-0 w-full z-40 static md:static
+                            ${toggleMenu && "translate-x-[-100%] fixed"}`}>
+                            <ul className={`${state.logged ? "grid-cols-3" : "grid-cols-2"} grid-rows-1 md:grid md:text-center`}>
+                                <li className="py-2">
+                                    <a href="#" onClick={() => navigate("/")} className="group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-ipf-green-l before:transition before:duration-300 hover:before:origin-left hover:before:scale-x-100  px-3">
+                                        <span className="relative text-white group-hover:text-border font-semibold">Home</span>
+                                    </a>
+                                </li>
 
-                </ul>
-            </section>
+                                <li className="py-2">
+                                    <a href="#" onClick={() => navigate("/auth/todo")} className="group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-ipf-green-l before:transition before:duration-300 hover:before:origin-left hover:before:scale-x-100  px-3">
+                                        <span className="relative text-white group-hover:text-border font-semibold">ToDo</span>
+                                    </a>
+                                </li>
 
-            
+                                <li className="py-2">
+                                    <a href="#" onClick={() => navigate("/auth/perfil")} className="group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-ipf-green-l before:transition before:duration-300 hover:before:origin-left hover:before:scale-x-100  px-3">
+                                        <span className="relative text-white group-hover:text-border font-semibold">Profile</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </section>
+                    </>
+                ) : ""
+            }
 
         </header >
     )

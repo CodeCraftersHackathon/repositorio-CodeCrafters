@@ -58,6 +58,7 @@ export const PageContextProvider = ({ children }) => {
         dispatch({
             type: types.LOGOUT,
         });
+        window.location.reload()
     };
 
     // ! THEME

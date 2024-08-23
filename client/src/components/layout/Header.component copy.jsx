@@ -54,12 +54,12 @@ export const Header = () => {
                                     className='h-6 w-6 rounded-full'
                                     src={"https://ui-avatars.com/api?background=random&name=" + username} alt="User-Icon"
                                 />
-                                <button onClick={handleLogout} className="group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-ipf-green-l before:transition before:duration-300 hover:before:origin-left hover:before:scale-x-100 px-3">
+                                <button onClick={handleLogout} className="group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-slate-300 before:transition before:duration-300 hover:before:origin-left hover:before:scale-x-100 px-3">
                                     <span className="relative text-white group-hover:text-border font-semibold">Cerrar Sesion</span>
                                 </button>
                             </div>
                         ) : (
-                            <button onClick={() => navigate("/login")} className="group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-ipf-green-l before:transition before:duration-300 hover:before:origin-left hover:before:scale-x-100 px-3">
+                            <button onClick={() => navigate("/login")} className="group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-slate-300 before:transition before:duration-300 hover:before:origin-left hover:before:scale-x-100 px-3">
                                 <span className="relative text-white group-hover:text-border font-semibold h-full w-full">Iniciar Sesion</span>
                             </button>
                         )}
@@ -74,13 +74,13 @@ export const Header = () => {
                 <ul className={`${state.logged ? "grid-cols-3" : "grid-cols-2"} grid-rows-1 md:grid md:text-center`}>
 
                     <li className="py-2">
-                        <a href="#" onClick={() => navigate("/")} className="group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-ipf-green-l before:transition before:duration-300 hover:before:origin-left hover:before:scale-x-100  px-3">
+                        <a href="#" onClick={() => navigate("/")} className="group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-slate-300 before:transition before:duration-300 hover:before:origin-left hover:before:scale-x-100  px-3">
                             <span className="relative text-white group-hover:text-border font-semibold">Home</span>
                         </a>
                     </li>
 
                     <li className="py-2">
-                        <a href="#" onClick={() => navigate("/auth/todo")} className="group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-ipf-green-l before:transition before:duration-300 hover:before:origin-left hover:before:scale-x-100  px-3">
+                        <a href="#" onClick={() => navigate("/auth/todo")} className="group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-slate-300 before:transition before:duration-300 hover:before:origin-left hover:before:scale-x-100  px-3">
                             <span className="relative text-white group-hover:text-border font-semibold">ToDo</span>
                         </a>
                     </li>
@@ -89,7 +89,7 @@ export const Header = () => {
                         (
                             <>
                                 <li className="py-2">
-                                    <a href="#" onClick={() => navigate("/auth/perfil")} className="group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-ipf-green-l before:transition before:duration-300 hover:before:origin-left hover:before:scale-x-100  px-3">
+                                    <a href="#" onClick={() => navigate("/auth/perfil")} className="group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-slate-300 before:transition before:duration-300 hover:before:origin-left hover:before:scale-x-100  px-3">
                                         <span className="relative text-white group-hover:text-border font-semibold">Profile</span>
                                     </a>
                                 </li>
