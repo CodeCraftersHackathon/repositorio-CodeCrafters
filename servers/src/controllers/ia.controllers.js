@@ -1,15 +1,13 @@
 //import { URL_IA } from "../config/config.js";
 import MCQuestions from "../models/MCQuestions.js";
 import { decodedToken } from "../helpers/jwt.js";
-const url = "https://0765-138-121-113-17.ngrok-free.app/api/generate";
+const url = "https://4791-181-238-21-42.ngrok-free.app/api/generate";
 
 class ActivityIaCtrl {
   constructor() {}
   async generateActivity(req, res) {
     const { consulta } = req.body;
-    const token = req.headers["authorization"].split(" ")[1];
-    const decoded = decodedToken(token);
-    const userId = decoded.id;
+
     try {
       const peticion = await fetch(url, {
         method: "POST",
@@ -64,10 +62,21 @@ class ActivityIaCtrl {
         accumulatedJSON = accumulatedJSON.slice(startIndex);
         chunk = await reader.read();
       }
-      const newQuestionFree = await freeQuestionsService.createFreeQuestion({
-        question: consulta,
-        userId,
-      });
+      if (req.headers["authorization"]) {
+        try {
+          const token = req.headers["authorization"].split(" ")[1];
+          const decoded = decodedToken(token);
+          const userId = decoded.id;
+          const newQuestionFree = await freeQuestionsService.createFreeQuestion(
+            {
+              question: consulta,
+              userId,
+            },
+          );
+        } catch (error) {
+          console.error(error);
+        }
+      }
       res.end();
     } catch (error) {
       console.error(error);
@@ -212,8 +221,8 @@ class ActivityIaCtrl {
       }
     }
   }
-  async saveActivityMC(req,res){
-    const {consulta} = req.body;
+  async saveActivityMC(req, res) {
+    const { consulta } = req.body;
     const token = req.headers["authorization"].split(" ")[1];
     const decoded = decodedToken(token);
     const userId = decoded.id;
@@ -223,11 +232,9 @@ class ActivityIaCtrl {
         userId,
       });
       console.log(newMCQuestion);
-      
     } catch (error) {
       console.log(error);
       res.status(500).json({ message: "error al guardar la actividad" });
-      
     }
   }
 }
