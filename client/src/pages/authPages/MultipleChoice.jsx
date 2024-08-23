@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Layout } from "../../components/layout/Layout.component";
 import { useRadioForm } from "../../hooks/useRadioForm";
@@ -32,8 +32,16 @@ export const MultipleChoice = () => {
     [values.consulta],
   );
 
+  useEffect(() => {
+
+    setResponse("")
+    setCorrectResponse("")
+
+  }, [context])
+
   const onSubmit = async () => {
     try {
+
       if (context !== "") {
         setLoading(true)
         const response = await apiFetchFunction("http://localhost:8000/actividades_seleccion", "POST", context, true)
@@ -93,7 +101,6 @@ export const MultipleChoice = () => {
     });
 
     setCorrectResponse(responses);
-    setDisabled(true)
   };
 
   return (
@@ -106,8 +113,8 @@ export const MultipleChoice = () => {
             <input type="text" placeholder="¿Sobre que tema quieres aprender?" className="w-full rounded h-10 p-2" value={values.consulta} onChange={handleChange} name="consulta" id="consulta" />
 
             <button
-              className={`border-white rounded-md font-semibold bg-yellow-500 border-2 hover:bg-yellow-700 hover:scale-110 text-white transition-all cursor-pointer h-8 w-20`}
-              type="submit" 
+              className="bg-slate-400 hover:bg-slate-500 text-white font-bold py-2 px-4 rounded-md transition-all duration-300 hover:scale-110"
+              type="submit"
             >
               ¡Enviar!
             </button>
@@ -116,9 +123,10 @@ export const MultipleChoice = () => {
 
         {
           laoding && (
-            <p>
-              CARGANDO...
-            </p>
+            <svg class="mr-3 h-5 w-5 animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
           )
         }
 
@@ -188,7 +196,7 @@ export const MultipleChoice = () => {
               ))}
 
               <div className="flex justify-center">
-                <button disabled={disabled} className={`border-white rounded-md font-semibold bg-yellow-500 border-2 hover:bg-yellow-700 hover:scale-110 text-white transition-all cursor-pointer h-8 w-20`} onClick={testQuestions}>Corregir</button>
+                <button disabled={disabled} className="bg-slate-400 hover:bg-slate-500 text-white font-bold py-2 px-4 rounded-md transition-all duration-300 hover:scale-110" onClick={testQuestions}>Corregir</button>
               </div>
             </div>
 

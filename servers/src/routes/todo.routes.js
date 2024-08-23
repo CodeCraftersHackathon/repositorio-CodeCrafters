@@ -12,7 +12,7 @@ router.get("/todos/:id", todoCtrl.getTodo.bind(todoCtrl));
 
 router.put("/todos/:id", todoCtrl.updateTodo.bind(todoCtrl));
 
-router.delete("/todos/:id", todoCtrl.deleteTodo.bind(todoCtrl));
+router.delete("/todos", todoCtrl.deleteTodo.bind(todoCtrl));
 
 router.delete("/todos/deleteAll", todoCtrl.deleteALl.bind(todoCtrl));
 

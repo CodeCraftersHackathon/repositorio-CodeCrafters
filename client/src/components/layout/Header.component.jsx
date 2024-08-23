@@ -25,27 +25,24 @@ export const Header = () => {
     }
 
     return (
-        <header className="bg-blue-950 border-b-2 z-10">
-            <nav className='bg-blue-900 border-black text-white z-10'>
-                <section className='flex justify-evenly h-12 items-center mx-auto container'>
+        <header className="bg-blue-950 ">
+            <nav className='bg-blue-900 border-black text-white'>
+                <section className='flex justify-between h-12 items-center md:mx-auto container'>
 
                     {/*//! MENU */}
-                    <button className='md:hidden rounded p-1 transition-colors hover:text-black hover:bg-green-50 focus:ring-1 focus:ring-slate-300 h-6 w-6 flex items-center justify-center'
+                    <button className='md:hidden rounded m-2 transition-colors hover:text-blue-950 hover:bg-blue-50 focus:ring-1 h-6 w-6 flex items-center justify-center'
                         onClick={handleMenu}
                         value={toggleMenu}
                     >
-                        <i className="text-xl hover:border-black border-2 rounded" >
+                        <i className="text-xl hover:border-blue border-1 rounded" >
                             {toggleMenu ? <IoMenu /> : <IoCloseSharp />}
                         </i>
                     </button>
 
                     {/* //!LOGO */}
-                    <div className='flex items-center -mr-10 font-gta space-x-1'>
-
-                        <img src={logo} alt="Logo CodeTrain" width={128} height={128} />
-
+                    <div className='flex items-center sm=justify-center sm:position-absolute font-gta '>
                         <a onClick={() => navigate("/")} className='text-2xl font-bold cursor-pointer' style={{ fontFamily: "JetBrains Mono, monospace" }} title="Volver al inicio">
-
+                            <img src={logo} alt="Logo CodeTrain" width={128} height={128} />
                         </a>
                     </div>
 
@@ -58,12 +55,12 @@ export const Header = () => {
                                     className='h-6 w-6 rounded-full'
                                     src={"https://ui-avatars.com/api?background=random&name=" + username} alt="User-Icon"
                                 />
-                                <button onClick={handleLogout} className="group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-ipf-green-l before:transition before:duration-300 hover:before:origin-left hover:before:scale-x-100 px-3">
+                                <button onClick={handleLogout} className="group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-slate-400 before:transition before:duration-300 hover:before:origin-left hover:before:scale-x-100 px-3">
                                     <span className="relative text-white group-hover:text-border font-semibold">Cerrar Sesion</span>
                                 </button>
                             </div>
                         ) : (
-                            <button onClick={() => navigate("/login")} className="group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-ipf-green-l before:transition before:duration-300 hover:before:origin-left hover:before:scale-x-100 px-3">
+                            <button onClick={() => navigate("/login")} className="group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-slate-400 before:transition before:duration-300 hover:before:origin-left hover:before:scale-x-100 px-3">
                                 <span className="relative text-white group-hover:text-border font-semibold">Iniciar Sesion</span>
                             </button>
                         )}
