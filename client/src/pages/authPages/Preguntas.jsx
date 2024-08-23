@@ -2,18 +2,18 @@ import { useState, useEffect } from "react";
 import { useForm } from "../../hooks/newForm";
 import { ToolTip } from "../../components/ToolTip";
 import { FaInfoCircle } from "react-icons/fa";
-import { apiFetchFunction } from "../../hooks/fetchApi";
+import { useFetchGenerateResponses } from "../../hooks/useFetchAIGenerateResponses"
 import { useFetchGenerate } from "../../hooks/useFetchAIGenerate"
 import { Layout } from "../../components/layout/Layout.component";
 
 export const Preguntas = () => {
 
     const { fetchOllama, generateResponse, loading } = useFetchGenerate()
-    const { fetchOllama: fetchOllamaCorreccion, generateResponse: generateResponseCorreccion, loading: loadingCorrecion } = useFetchGenerate()
+    const { fetchOllamaResponses, generateResponseAI, loadingResponses } = useFetchGenerateResponses()
 
     const formValues = {
         consulta: "",
-        model: "cm-llama3.1"
+        //   model: "cm-llama3.1"
     }
 
     const responsesValues = {
@@ -60,7 +60,7 @@ export const Preguntas = () => {
             }
         }
         fetchData();
-    }, [shouldFetch, values]);
+    }, [shouldFetch]);
 
     useEffect(() => {
         if (generateResponse) {
@@ -78,9 +78,15 @@ export const Preguntas = () => {
 
     const concatenatedString = parsedActivity.slice(1).map((question, index) => {
         const answer = responses[`pregunta${index + 1}`];
-        return `Pregunta${index + 1}: ${question.text}
-        Respuesta${index + 1}:${answer}`;
+        return `Pregunta: ${question.text}
+        Respuesta del usuario: ${answer}`;
     }).join('\n');
+
+    // const concatenatedString = parsedActivity.slice(1).map((question, index) => {
+    //      const answer = responses[`pregunta${index + 1}`];
+    //       return `Pregunta${index + 1}: ${question.text}
+    //       Respuesta${index + 1}:${answer}`;
+    //   }).join('\n');
 
     const payload = {
         consulta: concatenatedString
@@ -90,7 +96,7 @@ export const Preguntas = () => {
         const fetchData = async () => {
             try {
                 if (shouldFetchCorrection) {
-                    await fetchOllamaCorreccion("/questioncorrection", true, payload);
+                    await fetchOllamaResponses("/questioncorrection", true, payload);
                     setShouldFetchCorrection(false); // Resetea shouldFetch para evitar llamadas repetidas
                 }
             } catch (error) {
@@ -98,19 +104,20 @@ export const Preguntas = () => {
             }
         }
         fetchData();
-    }, [shouldFetchCorrection, payload]);
+    }, [shouldFetchCorrection]);
 
     const onSubmitCorrection = async () => {
         try {
-            if (values.consulta !== "") {
+            if (payload.consulta !== "") {
                 setShouldFetchCorrection(true);
+                console.log("empezo a corregir");
             }
         } catch (error) {
             console.error(error);
         }
     }
 
-    console.log(generateResponseCorreccion);
+    console.log(generateResponseAI);
 
     return (
         <Layout>
@@ -137,7 +144,7 @@ export const Preguntas = () => {
                 {loading && (
                     <div className="flex justify-center items-center p-5">
                         <svg className="mr-3 h-20 w-20 animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
                     </div>
@@ -174,6 +181,11 @@ export const Preguntas = () => {
                             </div>
                         }
                     </form>
+
+                    <div className="text-white">
+                        {loadingResponses && (<p>CARGANDO...</p>)}
+                        <span>{generateResponseAI}</span>
+                    </div>
 
                 </section>
             </div>
