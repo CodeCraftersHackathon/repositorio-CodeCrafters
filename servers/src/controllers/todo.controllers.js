@@ -19,7 +19,7 @@ class TodoCtrl {
 
   async getTodos(req, res) {
     try {
-      const token = req.headers["authorization"];
+      const token = req.headers["authorization"].split(" ")[1];
       const decoded = decodedToken(token);
       const userId = decoded.id;
       const todos = await this.todoService.getAll({
@@ -43,11 +43,13 @@ class TodoCtrl {
 
   async createTodo(req, res) {
     try {
-      const token = req.headers["authorization"];
+      const token = req.headers["authorization"].split(" ")[1];
       const decoded = decodedToken(token);
       req.body.userId = decoded.id;
       const body = req.body;
       const newTodo = await this.todoService.create(body);
+      console.log(newTodo);
+
       return res.status(201).json({
         status: 201,
         message: messages.created,
@@ -115,8 +117,9 @@ class TodoCtrl {
 
   async deleteTodo(req, res) {
     try {
-      const { id } = req.params;
-      const todo = await this.todoService.delete(id);
+      const { id } = req.body;
+
+      await this.todoService.delete(id);
       return res.status(200).json({
         status: 200,
         message: messages.deleted,
@@ -137,10 +140,10 @@ class TodoCtrl {
   }
   async deleteALl() {
     try {
-      const token = req.headers["authorization"];
+      const token = req.headers["authorization"].split(" ")[1];
       const decoded = decodedToken(token);
       const userId = decoded.id;
-      const todos = await this.todoService.deleteAll({
+      await this.todoService.deleteAll({
         userId,
       });
       return res.status(200).json({

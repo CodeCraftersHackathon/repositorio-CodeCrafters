@@ -40,7 +40,7 @@ export const verifyToken = (req, res, next) => {
 //decodificar el token
 export const decodedToken = (token) => {
   try {
-    const decoded = jsonwebtoken.verify(token, JWT_SECRET);
+    const decoded = jwt.verify(token, secretKey);
     if (!decoded) {
       throw new Error("Failed to decode token");
     }

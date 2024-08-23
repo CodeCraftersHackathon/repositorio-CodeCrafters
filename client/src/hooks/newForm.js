@@ -6,17 +6,17 @@ export const useForm = (initialValues, customErrorMessages = {}) => {
 
   const handleChange = (event) => {
     const { name, value, type } = event.target;
-  
+
     setValues((prevValues) => {
       const currentValue = prevValues[name];
-  
+
       let newValue;
       if (type === 'textarea') {
         newValue = value.split('\n');
       } else {
         newValue = value;
       }
-  
+
       if (Array.isArray(currentValue)) {
         return {
           ...prevValues,
@@ -49,11 +49,17 @@ export const useForm = (initialValues, customErrorMessages = {}) => {
     return Object.keys(newErrors).length === 0;
   };
 
+  const resetForm = () => {
+    setValues(initialValues); // Restablece los valores iniciales
+    setErrors({}); // Limpia los errores
+  };
+
   return {
     values,
     errors,
     handleChange,
     handleSubmit,
-    setValues
+    setValues,
+    resetForm
   };
 };
