@@ -180,12 +180,12 @@ export const Preguntas = () => {
                                 <button type="submit" className="bg-slate-400 hover:bg-slate-500 text-white font-bold py-2 px-4 rounded-md transition-all duration-300 hover:scale-110">Corregir</button>
                             </div>
                         }
-                    </form>
 
-                    <div className="text-white">
-                        {loadingResponses && (<p>CARGANDO...</p>)}
-                        <span>{generateResponseAI}</span>
-                    </div>
+                        <div className="text-white flex flex-col justify-center items-center text-center">
+                            {loadingResponses && (<span>Cargando su corrección...</span>)}
+                            <span>{generateResponseAI}</span>
+                        </div>
+                    </form>
 
                 </section>
             </div>

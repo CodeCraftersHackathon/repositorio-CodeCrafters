@@ -1,8 +1,5 @@
 import { useState, useMemo, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { Layout } from "../../components/layout/Layout.component";
-import { useRadioForm } from "../../hooks/useRadioForm";
-import { apiFetchFunction } from "../../hooks/fetchApi"
 import { useForm } from "../../hooks/newForm"
 import { ToolTip } from "../../components/ToolTip";
 import { FaInfoCircle } from "react-icons/fa";
@@ -38,7 +35,7 @@ export const Resumen = () => {
       if (context.consulta !== "") { // Verifica si consulta tiene un valor no vacío
         setLoading(true);
         setResponse(""); // Limpia la respuesta previa
-    
+
         const response = await fetch("http://localhost:5000/api/generateResumen", {
           method: "POST",
           headers: {
@@ -46,26 +43,26 @@ export const Resumen = () => {
           },
           body: JSON.stringify({ context }),
         });
-    
+
         if (!response.ok) {
           throw new Error("Error en la petición");
         }
-    
+
         const reader = response.body.getReader();
         const decoder = new TextDecoder("utf-8");
         let done = false;
-    
+
         while (!done) {
           const { value, done: chunkDone } = await reader.read();
           done = chunkDone;
           const chunk = decoder.decode(value, { stream: !done });
-    
+
           console.log(chunk); // Verifica el contenido de cada chunk recibido
-    
+
           // Actualiza el estado con cada chunk recibido
           setResponse(prevResponse => prevResponse + chunk);
         }
-    
+
         setLoading(false);
       }
     } catch (error) {
@@ -73,8 +70,10 @@ export const Resumen = () => {
       setLoading(false);
     }
   };
-  
-  
+
+  console.log(response);
+
+
 
 
   return (
@@ -113,8 +112,8 @@ export const Resumen = () => {
             >
               Material Teorico
             </h2>
-            <p className="text-white">
-              {response?.texto}
+            <p className="text-white font-semibold text-xl">
+              {response}
             </p>
             <div className="flex justify-center space-x-4">
               <button onClick={() => navigator.clipboard.writeText(response?.texto)} className="bg-slate-400 hover:bg-slate-500 text-white font-bold py-2 px-4 rounded-md transition-all duration-300 hover:scale-110"> Copiar en el portapapeles </button>
