@@ -102,7 +102,7 @@ class UserService {
         try {
             console.log(data);
 
-            const existUser = await this.findByNameOrEmail({ user: data.user })
+            const existUser = await this.findByNameOrEmail({ userName: data.user })
 
             console.log(existUser);
 
