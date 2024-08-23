@@ -132,7 +132,7 @@ class UserService {
             throw new Error(error.message || "Error al insertar datos");
         }
     }
-
+    
 }
 
 export default new UserService()
