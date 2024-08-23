@@ -8,9 +8,7 @@ class ActivityIaCtrl {
   constructor() { }
   async generateActivity(req, res) {
     const { consulta } = req.body;
-    //  const token = req.headers["authorization"].split(" ")[1];
-    // const decoded = decodedToken(token);
-    // const userId = decoded.id;
+
     try {
       const peticion = await fetch(url, {
         method: "POST",
@@ -65,10 +63,20 @@ class ActivityIaCtrl {
         accumulatedJSON = accumulatedJSON.slice(startIndex);
         chunk = await reader.read();
       }
-    //  const newQuestionFree = await freeQuestionsService.createFreeQuestion({
-      //  question: consulta,
-      //  userId,
-     // });
+      if (req.headers["authorization"]) {
+        try {
+          const token = req.headers["authorization"].split(" ")[1];
+          const decoded = decodedToken(token);
+          const userId = decoded.id;
+          
+          const newQuestionFree = await freeQuestionsService.createFreeQuestion({
+            question: consulta,
+            userId,
+          });
+        } catch (error) {
+          console.log(error);
+        }
+      }
       res.end();
     } catch (error) {
       console.error(error);
@@ -135,7 +143,24 @@ class ActivityIaCtrl {
         accumulatedJSON = accumulatedJSON.slice(startIndex);
         chunk = await reader.read();
       }
+      if(req.headers["authorization"]){
+        try {
+          const token = req.headers["authorization"].split(" ")[1];
+          const decoded = decodedToken(token);
+          const userId = decoded.id;
+          
+          const getQuestion = await freeQuestionsService.getLastFreeQuestion(userId);
+          //agrega la calificación a la pregunta
+          //filtrar del texto la calificación
+          const calificacion = activity.match(/-?\d+\.?\d*/);
+          getQuestion.calification = calificacion[0];
+          await getQuestion.save();
+        } catch (error) {
+          console.log(error);
+          
+        }
 
+      }
       res.end();
     } catch (error) {
       console.error(error);

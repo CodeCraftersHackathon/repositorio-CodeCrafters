@@ -122,14 +122,11 @@ class UserService {
     async insertManyFake(data) {
         try {
             const existUsers = await this.findAll()
-
-            if (!existUsers) {
                 //! Inserta múltiples documentos en la colección
                 await User.insertMany(data);
                 return 'Datos insertados correctamente';
-            } else {
-                throw new Error("No es posible insertar tantos usuarios");
-            }
+         
+            
 
         } catch (error) {
             throw new Error(error.message || "Error al insertar datos");
