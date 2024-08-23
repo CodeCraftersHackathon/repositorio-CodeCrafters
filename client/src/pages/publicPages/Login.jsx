@@ -16,7 +16,7 @@ export const Login = () => {
         password: ""
     }
 
-    const { darkTheme, login } = useContext(PageContext)
+    const { login } = useContext(PageContext)
 
     const { values, handleSubmit, handleChange } = useForm(formValues)
 
