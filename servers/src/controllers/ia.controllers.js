@@ -88,7 +88,11 @@ class ActivityIaCtrl {
     }
   }
   async correctionQuestion(req, res) {
-    const { consulta } = req.body;
+
+    const body = req.body;
+
+    const consulta = body.consulta.replace(/\n\s*/g, ' ');
+
     try {
       const peticion = await fetch(url, {
         method: "POST",
