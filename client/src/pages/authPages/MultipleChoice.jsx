@@ -1,138 +1,199 @@
-import { useState, useEffect, useContext, useMemo } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { PageContext } from "../../context/App.context";
-import { useFetchGenerate } from "../../hooks/useFetchAIGenerate";
+import { useState, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import { Layout } from "../../components/layout/Layout.component";
-// import { useRadioForm } from "../../hooks/useRadioForm";
-import { TiArrowBack } from "react-icons/ti";
-import { useToast } from "../../hooks/useToast";
+import { useRadioForm } from "../../hooks/useRadioForm";
 import { apiFetchFunction } from "../../hooks/fetchApi"
 import { useForm } from "../../hooks/newForm"
+import { ToolTip } from "../../components/ToolTip";
+import { FaInfoCircle } from "react-icons/fa";
 
 export const MultipleChoice = () => {
 
   const formValue = {
     consulta: ""
   }
-
   const { values, handleSubmit, handleChange } = useForm(formValue)
 
-  // const { fetchGenerate, generateResponse, loading } = useFetchGenerate();
+  const [correctResponse, setCorrectResponse] = useState(null);
 
-  const navigate = useNavigate();
+  const [disabled, setDisabled] = useState(false)
+
+  const [response, setResponse] = useState("");
+
+  const [laoding, setLoading] = useState(false)
+
+  const { selectedValues, handleSelect } = useRadioForm();
 
   const context = useMemo(
     () => ({
-      tema: "xd",
+      consulta: values.consulta,
       theme: "oscuro",
     }),
-    ["XD"],
+    [values.consulta],
   );
 
-  const onSubmit = () => {
-
+  const onSubmit = async () => {
+    try {
+      if (context !== "") {
+        setLoading(true)
+        const response = await apiFetchFunction("http://localhost:8000/actividades_seleccion", "POST", context, true)
+        setResponse(response)
+        console.log(response);
+        setLoading(false)
+      }
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  // const { selectedValues, handleChange } = useRadioForm();
+  const testQuestions = () => {
+    const formatted = {}
+    const responses = {};
+    const comparisons = [];  /* Array para almacenar los resultados de las comparaciones */
 
-  // const onSubmit = async (e) => {
+    response?.preguntas?.forEach((pregunta, index) => {
+      try {
+        const key = `question-${index}`;
+        const opciones = response?.seleccionables?.[`Pregunta ${index + 1}`]?.slice(0, 4) || [];
 
-  //   const responses = {};
-  //   const comparisons = []; // Array para almacenar los resultados de las comparaciones
+        const correctaRaw = response?.seleccionables?.[`Pregunta ${index + 1}`]?.[4];
+        const correcta = correctaRaw ? correctaRaw.split(":")[1].replace(/\*\*/g, "").trim() : null;
 
-  //   generateResponse?.preguntas?.forEach((pregunta, index) => {
-  //     try {
-  //       const key = `question-${index}`;
-  //       const opciones = generateResponse?.seleccionables?.[`Pregunta ${index + 1}`]?.slice(0, 4) || [];
+        const justificacionRaw = response?.seleccionables?.[`Pregunta ${index + 1}`]?.[5];
+        const justificacion = justificacionRaw ? justificacionRaw.split(":")[1]?.trim() : "";
 
-  //       const correctaRaw = generateResponse?.seleccionables?.[`Pregunta ${index + 1}`]?.[4];
-  //       const correcta = correctaRaw ? correctaRaw.split(":")[1].replace(/\*\*/g, "").trim() : null;
+        const respuestaSeleccionada = selectedValues[key]?.trim() || "";
+        const esCorrecta = respuestaSeleccionada.trim().toLowerCase() === correcta?.trim().toLowerCase();
 
-  //       const justificacionRaw = generateResponse?.seleccionables?.[`Pregunta ${index + 1}`]?.[5];
-  //       const justificacion = justificacionRaw ? justificacionRaw.split(":")[1]?.trim() : "";
+        formatted[`pregunta ${index + 1}`] = {
+          pregunta,
+          opciones,
+          opcionElegida: respuestaSeleccionada,
+          correcta,
+          justificacion,
+          esCorrecta,
+        };
 
-  //       const respuestaSeleccionada = selectedValues[key]?.trim() || "";
-  //       const esCorrecta = respuestaSeleccionada.trim().toLowerCase() === correcta?.trim().toLowerCase();
+        responses[`pregunta ${index + 1}`] = {
+          correcta,
+          justificacion,
+        };
 
-  //       formatted[`pregunta ${index + 1}`] = {
-  //         pregunta,
-  //         opciones,
-  //         opcionElegida: respuestaSeleccionada,
-  //         correcta,
-  //         justificacion,
-  //         esCorrecta,
-  //       };
+        // Agregar la comparación al array de comparaciones
+        comparisons.push({
+          pregunta,
+          respuestaSeleccionada,
+          correcta,
+          justificacion,
+          esCorrecta,
+        });
+      } catch (error) {
+        console.error(`Error procesando la pregunta ${index + 1}:`, error);
+      }
+    });
 
-  //       responses[`pregunta ${index + 1}`] = {
-  //         correcta,
-  //         justificacion,
-  //       };
-
-  //       // Agregar la comparación al array de comparaciones
-  //       comparisons.push({
-  //         pregunta,
-  //         respuestaSeleccionada,
-  //         correcta,
-  //         justificacion,
-  //         esCorrecta,
-  //       });
-  //     } catch (error) {
-  //       console.error(`Error procesando la pregunta ${index + 1}:`, error);
-  //     }
-  //   });
-
-  //   setCorrectResponse(responses);
-
-  //   try {
-  //     // Realizar fetch al backend enviando el array de comparaciones
-
-  //     const response = await apiFetchFunction("/api/teorical", "PUT", { corrections: comparisons, courseId: courseId });
-
-  //     console.log(response);
-
-  //     useToast(response.status, "Corrección enviada exitosamente.")
-
-  //   } catch (error) {
-  //     console.error("Error al enviar la corrección:", error);
-
-  //     useToast(500, "No se pudo enviar la corrección. Inténtelo nuevamente.")
-  //   }
-  // };
+    setCorrectResponse(responses);
+    setDisabled(true)
+  };
 
   return (
     <Layout>
-      <div className="flex flex-col">
+      <div className="space-y-5 w-full">
+        <form onSubmit={handleSubmit(onSubmit)} className="w-full px-24">
+          <div className="flex space-x-4 items-center">
+            <ToolTip bgColor={"bg-blue-400"} borderColor={"border-blue-400"} icon={<FaInfoCircle />} iconColor={"text-blue-500"} text={"Solo debes introducir el tema del cual te interese aprender"} />
 
-        <section>
+            <input type="text" placeholder="¿Sobre que tema quieres aprender?" className="w-full rounded h-10 p-2" value={values.consulta} onChange={handleChange} name="consulta" id="consulta" />
 
-          <form onSubmit={handleSubmit(onSubmit)}>
-
-
-            <div className="flex space-x-4 items-center">
-              <input type="text" placeholder="¿Sobre que tema quieres aprender?" className="w-full rounded h-10" value={values.consulta} onChange={handleChange} name="consultas" id="consultas" />
-
-              <button
-                className={`border-white rounded-md font-semibold bg-yellow-500 border-2 hover:bg-yellow-700 hover:scale-110 text-white transition-all cursor-pointer h-8 w-20`}
-                type="submit"
-              >
-                ¡Enviar!
-              </button>
-            </div>
-          </form>
-        </section>
-
+            <button
+              className={`border-white rounded-md font-semibold bg-yellow-500 border-2 hover:bg-yellow-700 hover:scale-110 text-white transition-all cursor-pointer h-8 w-20`}
+              type="submit" 
+            >
+              ¡Enviar!
+            </button>
+          </div>
+        </form>
 
         {
-          false &&
-          <section>
-            <h1
-              className={`text-slate-900 text-2xl text-left pl-3  font-bold font-roboto-mono`}
-            >
-              Actividades Multiple Choice
-            </h1>
-          </section>
+          laoding && (
+            <p>
+              CARGANDO...
+            </p>
+          )
         }
 
+        {
+          response != "" &&
+          <section className="flex flex-col space-y-2">
+            <h2
+              className={`text-slate-200 text-2xl text-center pl-3  font-bold font-roboto-mono`}
+            >
+              Material Teorico
+            </h2>
+            <p className="text-white">
+              {response?.explicacion}
+            </p>
+
+            <h2
+              className={`text-slate-200 text-2xl text-center pl-3  font-bold font-roboto-mono`}
+            >
+              Cuestionario
+            </h2>
+
+
+            <div className="flex flex-col px-3 text-left gap-y-8 text-xl">
+              {response?.preguntas?.map((pregunta, index) => (
+                <div key={pregunta}>
+                  <p
+                    className={`pb-3 text-white`}
+                  >
+                    {index + 1 + " " + pregunta}
+                  </p>
+
+                  <ul>
+                    {response.seleccionables?.[`Pregunta ${index + 1}`]
+                      ?.slice(0, 4)
+                      ?.map((opcion) => {
+                        const opcionTexto = opcion?.split(":")[1]?.trim();
+                        const esCorrecta =
+                          correctResponse?.[`pregunta ${index + 1}`]?.correcta === opcionTexto;
+                        return (
+                          <li
+                            key={opcion}
+                            className={`${correctResponse ? (esCorrecta ? "text-green-500" : "text-red-500") : "text-white"} pl-10 pb-5`}
+                          >
+                            <label className="flex gap-x-2 items-baseline">
+                              <input
+                                className="h-4 w-4"
+                                type="radio"
+                                name={`question-${index}`}
+                                value={opcionTexto}
+                                checked={selectedValues[`question-${index}`] === opcionTexto}
+                                onChange={(e) =>
+                                  handleSelect(`question-${index}`, e.target.value)
+                                }
+                              />
+                              {opcionTexto}
+                            </label>
+                          </li>
+                        );
+                      })}
+                  </ul>
+                  {correctResponse && (
+                    <p className="text-sm text-blue-400">
+                      {correctResponse[`pregunta ${index + 1}`]?.justificacion}
+                    </p>
+                  )}
+                </div>
+              ))}
+
+              <div className="flex justify-center">
+                <button disabled={disabled} className={`border-white rounded-md font-semibold bg-yellow-500 border-2 hover:bg-yellow-700 hover:scale-110 text-white transition-all cursor-pointer h-8 w-20`} onClick={testQuestions}>Corregir</button>
+              </div>
+            </div>
+
+          </section>
+        }
       </div>
     </Layout >
   );
