@@ -1,7 +1,7 @@
 import { Router } from "express";
 
 import {
-    getUserByNameOrEmail, login, deleteUser, getUserById, createFakeUser, createStudent, createStudentGoogle
+    getUserByNameOrEmail, login, deleteUser, getUserById, createFakeUser, createStudent, createStudentGoogle, getUsers
 } from "../controllers/user.controller.js"
 
 import { validateStudent, validateLogin, validateNameOrEmail, validateParamsId } from "../validators/user.validation.js"
@@ -10,6 +10,7 @@ import { verifyToken, verifyAdmin, verifyAdminOrSeller } from "../helpers/jwt.js
 
 const router = Router();
 
+router.get("/users/", getUsers)
 router.get("/user/:id", validateParamsId, verifyToken, verifyAdmin, getUserById)
 router.get("/userNameEmail", validateNameOrEmail, verifyToken, verifyAdminOrSeller, getUserByNameOrEmail)
 

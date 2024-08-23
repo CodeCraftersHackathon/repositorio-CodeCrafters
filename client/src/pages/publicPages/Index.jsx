@@ -1,5 +1,4 @@
 import React from 'react'
-import { Layout } from '../../components/layout/Layout.component'
 import { Cards } from "../../components/Cards.component"
 import { useNavigate } from 'react-router-dom'
 import { Footer } from "../../components/layout/Footer.component"
