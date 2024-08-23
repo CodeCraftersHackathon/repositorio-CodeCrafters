@@ -1,8 +1,8 @@
 const apiRoute = "http://localhost:5000/api"
 
-export const apiFetchFunction = async (route, method, payload) => {
+export const apiFetchFunction = async (route, method, payload, py = false) => {
 
-    const url = `${apiRoute}${route}`
+    const url = !py ? `${apiRoute}${route}` : route
 
     const headers = {
         "Content-Type": "application/json",
