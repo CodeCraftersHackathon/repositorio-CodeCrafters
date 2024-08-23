@@ -18,11 +18,7 @@
 <script>
 
     const consulta= `
-    Durante la Primera Revolución Industrial, hubo una migración masiva de campesinos hacia las ciudades, donde encontraban oportunidad de subsistir como trabajadores asalariados en las nuevas fábricas. Como consecuencia de estos cambios, se definió un nuevo tipo de sociedad, caracterizado por la oposición entre la burguesía (clase social dueña de las fábricas y el capital) y el proletariado (clase social que depende del trabajo asalariado para su subsistencia). 
-
-La Segunda Revolución Industrial se caracterizó por el aumento de la productividad industrial a partir de la introducción de la cadena de montaje (separación del proceso productivo en diferentes etapas) y  nuevas fuentes de energía. En esta segunda etapa, Alemania protagonizó el mayor crecimiento económico, y las transformaciones se extendieron a Estados Unidos y Japón.
-
-
+    tema: fundamentos de enfermeria
 
     `
   // Función para cargar la respuesta progresivamente. 
@@ -31,7 +27,7 @@ La Segunda Revolución Industrial se caracterizó por el aumento de la productiv
 
     // Hacer la solicitud al servidor
     console.log('Haciendo la solicitud al servidor');
-    const response = await fetch('http://localhost:3000/api/generateResumen', {
+    const response = await fetch('http://localhost:5000/api/mcgenerate', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
