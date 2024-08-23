@@ -1,6 +1,6 @@
 //import { URL_IA } from "../config/config.js";
 
-const url = "https://ebf0-138-121-113-27.ngrok-free.app/api/generate";
+const url = "https://0765-138-121-113-17.ngrok-free.app/api/generate";
 
 class ActivityIaCtrl {
   constructor() {}
