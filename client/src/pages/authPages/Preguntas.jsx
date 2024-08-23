@@ -4,14 +4,12 @@ import { ToolTip } from "../../components/ToolTip";
 import { FaInfoCircle } from "react-icons/fa";
 import { apiFetchFunction } from "../../hooks/fetchApi";
 import { useFetchGenerate } from "../../hooks/useFetchAIGenerate"
-// import { useFetchAI } from "../hooks/useFetchAI";
-// import { useFetchGenerate } from "../hooks/useFetchAIGenerate";
-// import { useParams, useNavigate } from "react-router-dom";
 import { Layout } from "../../components/layout/Layout.component";
 
 export const Preguntas = () => {
 
     const { fetchOllama, generateResponse, loading } = useFetchGenerate()
+    const { fetchOllama: fetchOllamaCorreccion, generateResponse: generateResponseCorreccion, loading: loadingCorrecion } = useFetchGenerate()
 
     const formValues = {
         consulta: "",
@@ -35,6 +33,7 @@ export const Preguntas = () => {
     const { values: responses, handleChange: handleChange2, handleSubmit: handleSubmit2 } = useForm(responsesValues)
 
     const [shouldFetch, setShouldFetch] = useState(false);
+    const [shouldFetchCorrection, setShouldFetchCorrection] = useState(false);
 
     const [parsedActivity, setParsedActivity] = useState([])
 
@@ -53,7 +52,7 @@ export const Preguntas = () => {
         const fetchData = async () => {
             try {
                 if (shouldFetch) {
-                    const response = await fetchOllama("/mcgenerate", true, values);
+                    await fetchOllama("/mcgenerate", true, values);
                     setShouldFetch(false); // Resetea shouldFetch para evitar llamadas repetidas
                 }
             } catch (error) {
@@ -77,12 +76,41 @@ export const Preguntas = () => {
     }, [generateResponse]);
 
 
-    const testQuestions = async () => {
-        const response = await apiFetchFunction("/questioncorrection", "POST", payload)
-        console.log(response);
+    const concatenatedString = parsedActivity.slice(1).map((question, index) => {
+        const answer = responses[`pregunta${index + 1}`];
+        return `Pregunta${index + 1}: ${question.text}
+        Respuesta${index + 1}:${answer}`;
+    }).join('\n');
+
+    const payload = {
+        consulta: concatenatedString
+    }
+    //// CORRECCION
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                if (shouldFetchCorrection) {
+                    await fetchOllamaCorreccion("/questioncorrection", true, payload);
+                    setShouldFetchCorrection(false); // Resetea shouldFetch para evitar llamadas repetidas
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        fetchData();
+    }, [shouldFetchCorrection, payload]);
+
+    const onSubmitCorrection = async () => {
+        try {
+            if (values.consulta !== "") {
+                setShouldFetchCorrection(true);
+            }
+        } catch (error) {
+            console.error(error);
+        }
     }
 
-    console.log(responses);
+    console.log(generateResponseCorreccion);
 
     return (
         <Layout>
@@ -107,10 +135,12 @@ export const Preguntas = () => {
 
 
                 {loading && (
-                    <svg class="mr-3 h-5 w-5 animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
+                    <div className="flex justify-center items-center p-5">
+                        <svg className="mr-3 h-20 w-20 animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                    </div>
                 )}
 
                 <section className={`grid grid-cols-2 grid-rows-1 py-3 text-white space-x-5 w-full`}>
@@ -124,22 +154,24 @@ export const Preguntas = () => {
                         </ul>
                     </div>
 
-                    <form className="border-2 border-white flex flex-col space-y-4 p-5 rounded-md w-full" onSubmit={handleSubmit2(testQuestions)}>
+                    <form className="border-2 border-white flex flex-col space-y-4 p-5 rounded-md w-full" onSubmit={handleSubmit2(onSubmitCorrection)}>
                         <h2 className="text-xl font-bold">Tus respuestas</h2>
                         {parsedActivity.slice(1).map((input) => (
                             <>
                                 <div className="flex w-full space-x-2">
                                     <span>{input.id}</span>
-                                    <input id={`pregunta${input.id}`} type="text" className="rounded-md w-full text-slate-800" name={`pregunta ${input.id}`} placeholder={`Tu respuesta para la pregunta${input.id}`} onChange={handleChange2} />
+                                    <input id={`pregunta${input.id}`} type="text" className="rounded-md w-full text-slate-800"
+                                        name={`pregunta${input.id}`} placeholder={`Tu respuesta para la pregunta${input.id}`}
+                                        onChange={handleChange2} />
                                 </div>
 
                             </>
                         ))}
 
                         {parsedActivity.length == 11 &&
-                        <div >
-                            <button type="submit" className="bg-slate-400 hover:bg-slate-500 text-white font-bold py-2 px-4 rounded-md transition-all duration-300 hover:scale-110">Corregir</button>
-                        </div>
+                            <div >
+                                <button type="submit" className="bg-slate-400 hover:bg-slate-500 text-white font-bold py-2 px-4 rounded-md transition-all duration-300 hover:scale-110">Corregir</button>
+                            </div>
                         }
                     </form>
 
