@@ -24,7 +24,7 @@ export const Footer = () => {
     };
 
     return (
-        <div className={`bg-blue-900 py-6 space-y-4`}>
+        <div className={`bg-gradient-to-b from-blue-950 to-blue-900 py-10 space-y-4`}>
             <div className="container mx-auto px-4 max-w-4xl">
                 <ul className="flex justify-center items-center space-x-6 pb-4">
                     <li className="relative group">

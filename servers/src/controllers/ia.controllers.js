@@ -1,11 +1,15 @@
 //import { URL_IA } from "../config/config.js";
-
+import FreeQuestionsService from "../services/IaService.js";
 const url = "https://ebf0-138-121-113-27.ngrok-free.app/api/generate";
+const freeQuestionsService = new FreeQuestionsService();
 
 class ActivityIaCtrl {
   constructor() {}
-  async generateActivityChoise(req, res) {
+  async generateActivity(req, res) {
     const { consulta } = req.body;
+    const token = req.headers["authorization"].split(" ")[1];
+    const decoded = decodedToken(token);
+    const userId = decoded.id;
     try {
       const peticion = await fetch(url, {
         method: "POST",
@@ -60,7 +64,10 @@ class ActivityIaCtrl {
         accumulatedJSON = accumulatedJSON.slice(startIndex);
         chunk = await reader.read();
       }
-
+      const newQuestionFree = await freeQuestionsService.createFreeQuestion({
+        question: consulta,
+        userId,
+      });
       res.end();
     } catch (error) {
       console.error(error);
