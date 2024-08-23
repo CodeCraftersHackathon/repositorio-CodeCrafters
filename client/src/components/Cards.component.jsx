@@ -3,8 +3,8 @@ export const Cards = ({ img, title, content, children, footer = true, nav, subTi
   const altImg = `https://ui-avatars.com/api?background=random&name=${title}`
 
   return (
-      <article className="bg-white shadow rounded-xl border-2 border-blue-300 group w-72
-      hover:shadow-2xl hover:shadow-blue-300 hover:border-blue-300 relative z-10">
+      <article className="bg-white shadow rounded-xl  group w-72
+      hover:shadow-2xl relative z-10">
 
           < div className="relative overflow-hidden cursor-pointer">
 

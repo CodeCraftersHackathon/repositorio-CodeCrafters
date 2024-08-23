@@ -24,27 +24,24 @@ export const Header = () => {
     }
 
     return (
-        <header className="bg-blue-950 border-b-2 z-10">
-            <nav className='bg-blue-900 border-black text-white z-10'>
-                <section className='flex justify-evenly h-12 items-center mx-auto container'>
+        <header className="bg-blue-950 ">
+            <nav className='bg-blue-900 border-black text-white'>
+                <section className='flex justify-between h-12 items-center md:mx-auto container'>
 
                     {/*//! MENU */}
-                    <button className='md:hidden rounded p-1 transition-colors hover:text-black hover:bg-green-50 focus:ring-1 focus:ring-slate-300 h-6 w-6 flex items-center justify-center'
+                    <button className='md:hidden rounded m-2 transition-colors hover:text-blue-950 hover:bg-blue-50 focus:ring-1 h-6 w-6 flex items-center justify-center'
                         onClick={handleMenu}
                         value={toggleMenu}
                     >
-                        <i className="text-xl hover:border-black border-2 rounded" >
+                        <i className="text-xl hover:border-blue border-1 rounded" >
                             {toggleMenu ? <IoMenu /> : <IoCloseSharp />}
                         </i>
                     </button>
 
                     {/* //!LOGO */}
-                    <div className='flex items-center -mr-10 font-gta space-x-1'>
-
-                        <img src={logo} alt="Logo CodeTrain" width={128} height={128} />
-
+                    <div className='flex items-center sm=justify-center sm:position-absolute font-gta '>
                         <a onClick={() => navigate("/")} className='text-2xl font-bold cursor-pointer' style={{ fontFamily: "JetBrains Mono, monospace" }} title="Volver al inicio">
-
+                            <img src={logo} alt="Logo CodeTrain" width={128} height={128} />
                         </a>
                     </div>
 
@@ -61,48 +58,66 @@ export const Header = () => {
                                     <span className="relative text-white group-hover:text-border font-semibold">Cerrar Sesion</span>
                                 </button>
                             </div>
-                        ) : (
-                            <button onClick={() => navigate("/login")} className="group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-ipf-green-l before:transition before:duration-300 hover:before:origin-left hover:before:scale-x-100 px-3">
-                                <span className="relative text-white group-hover:text-border font-semibold">Iniciar Sesion</span>
-                            </button>
+                        ) : (                
+                            
+                            <div className={`py-3 hidden md:block relative cursor-pointer hover:bg-blue-950   transition duration-200`}>
+                            <a onClick={() => navigate("/login")} className="group relative px-3">
+                              <span className="relative text-white font-semibold">
+                                Iniciar Sesion
+                              </span>
+                            </a>
+                          </div>
+                             
                         )}
 
                     </div>
                 </section>
             </nav>
             {/* //! LINKS */}
-            <section className={`bg-blue-900 text-start py-1 pb-1 border-t  transition  duration-300 "translate-x-0" md:translate-x-0 md:duration-0 w-full z-40 static md:static
+            <section className={`bg-blue-900 text-start  transition  duration-300 "translate-x-0" md:translate-x-0 md:duration-0 w-full z-40 static md:static
                 ${toggleMenu && "translate-x-[-100%] fixed"}`}>
 
                 <ul className={`${state.logged ? "grid-cols-3" : "grid-cols-2"} grid-rows-1 md:grid md:text-center`}>
-
-                    <li className="py-2">
-                        <a href="#" onClick={() => navigate("/")} className="group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-ipf-green-l before:transition before:duration-300 hover:before:origin-left hover:before:scale-x-100  px-3">
-                            <span className="relative text-white group-hover:text-border font-semibold">Home</span>
+                <li className="py-2 md:hidden">
+                    <a href="#" onClick={() => navigate("/")} className="group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-ipf-green-l before:transition before:duration-300 hover:before:origin-left hover:before:scale-x-100  px-3">
+                    <span className="relative text-white group-hover:text-border font-semibold">Home</span>
+                    </a>
+                </li>
+                <li className="py-2 md:hidden">
+                    <a href="#" onClick={() => navigate("/auth/todo")} className="group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-ipf-green-l before:transition before:duration-300 hover:before:origin-left hover:before:scale-x-100  px-3">
+                    <span className="relative text-white group-hover:text-border font-semibold">ToDo</span>
+                    </a>
+                </li>
+                {state.logged ?
+                    (
+                    <li className={`py-2 md:block hidden`}>
+                        <a href="#" onClick={() => navigate("/auth/perfil")} className="group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-ipf-green-l before:transition before:duration-300 hover:before:origin-left hover:before:scale-x-100  px-3">
+                        <span className="relative text-white group-hover:text-border font-semibold">Profile</span>
                         </a>
                     </li>
+                    ) : ""
+                }
 
-                    <li className="py-2">
-                        <a href="#" onClick={() => navigate("/auth/todo")} className="group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-ipf-green-l before:transition before:duration-300 hover:before:origin-left hover:before:scale-x-100  px-3">
-                            <span className="relative text-white group-hover:text-border font-semibold">ToDo</span>
-                        </a>
+                {!state.logged ?
+                    (
+                    <li className={`py-2 md:hidden`}>
+                        <a onClick={() => navigate("/login")} className="group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-ipf-green-l before:transition before:duration-300 hover:before:origin-left hover:before:scale-x-100 px-3">
+                            <span className="relative text-white group-hover:text-border font-semibold">Iniciar Sesion</span>
+                        </a> 
                     </li>
+                    ) : ""
+                }
+         
 
-                    {state.logged ?
-                        (
-                            <>
-                                <li className="py-2">
-                                    <a href="#" onClick={() => navigate("/auth/perfil")} className="group relative before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:bg-ipf-green-l before:transition before:duration-300 hover:before:origin-left hover:before:scale-x-100  px-3">
-                                        <span className="relative text-white group-hover:text-border font-semibold">Profile</span>
-                                    </a>
-                                </li>
-                            </>
-                        ) : ""
-                    }
+                    {/* //! USER */}
+    
+
+
 
                 </ul>
-
             </section>
+
+            
 
         </header >
     )

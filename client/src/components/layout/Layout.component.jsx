@@ -11,7 +11,7 @@ export const Layout = ({ children }) => {
                 <div className="flex flex-col h-full min-h-screen w-full" >
                     <Header />
                     <ToastContainer />
-                    <main className={`flex flex-grow text-center bg-slate-800 min-w-screen z-10 p-10 justify-center items-center'}`}>
+                    <main className={`flex flex-grow text-center bg-blue-950 min-w-screen z-10 p-10 justify-center items-center'}`}>
                         {children}
                     </main>
                 </div >
