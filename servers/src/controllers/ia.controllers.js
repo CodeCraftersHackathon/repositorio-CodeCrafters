@@ -1,6 +1,6 @@
 //import { URL_IA } from "../config/config.js";
 import FreeQuestionsService from "../services/IaService.js";
-const url = "http://localhost:11434/api/generate";
+const url = "https://54e1-138-121-113-27.ngrok-free.app/api/generate";
 const freeQuestionsService = new FreeQuestionsService();
 import { decodedToken } from "../helpers/jwt.js";
 
@@ -172,7 +172,10 @@ class ActivityIaCtrl {
     }
   }
   async resumeGenerate(req, res) {
-    const { consulta } = req.body;
+    
+    const body = req.body
+    console.log(body.context.consulta[0]);
+    const consulta = body.context.consulta[0];
     try {
       const peticion = await fetch(url, {
         method: "POST",

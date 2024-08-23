@@ -18,7 +18,24 @@
 <script>
 
     const consulta= `
-    tema: fundamentos de enfermeria
+    Respuesta del usuario: Transportar oxígeno desde los pulmones hacia los tejidos del cuerpo y llevar dióxido de carbono de vuelta a los pulmones para ser exhalado.
+Pregunta: ¿Qué es la fotosíntesis?
+Respuesta del usuario: La fotosíntesis es la conversión de luz solar en energía mediante reacciones químicas en las células vegetales.
+Pregunta: ¿Quién fue el autor de la teoría de la relatividad?
+Respuesta del usuario: Albert Einstein fue el autor de la teoría de la relatividad.
+Pregunta: ¿Qué es un átomo?
+Respuesta del usuario: Un átomo es una partícula subatómica que constituye toda la materia.
+Pregunta: ¿Cuál es la capital de Francia?
+Respuesta del usuario: La capital de Francia es Berlín.
+Pregunta: ¿Qué es el ciclo del agua?
+Respuesta del usuario: El ciclo del agua es el proceso por el cual el agua circula entre la atmósfera y la superficie terrestre.
+Pregunta: ¿Cuál es el número atómico del carbono?
+Respuesta del usuario: El número atómico del carbono es 8.
+Pregunta: ¿Qué es un ecosistema?
+Respuesta del usuario: Un ecosistema es un grupo de especies animales que viven en un hábitat específico.
+Pregunta: ¿Quién pintó la Mona Lisa?
+Respuesta del usuario: La Mona Lisa fue pintada por Vincent van Gogh.
+Pregunta: ¿Qué es un agujero negro?
 
     `
   // Función para cargar la respuesta progresivamente. 
@@ -27,7 +44,7 @@
 
     // Hacer la solicitud al servidor
     console.log('Haciendo la solicitud al servidor');
-    const response = await fetch('http://localhost:5000/api/mcgenerate', {
+    const response = await fetch('http://localhost:5000/api/questioncorrection', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

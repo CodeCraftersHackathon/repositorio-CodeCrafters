@@ -35,19 +35,46 @@ export const Resumen = () => {
 
   const onSubmit = async () => {
     try {
-
-      if (context !== "") {
-        setLoading(true)
-        const response = await apiFetchFunction("http://localhost:5000/api/generateResumen", "POST", context, true)
-        setResponse(response)
-        console.log(response);
-        setLoading(false)
+      if (context.consulta !== "") { // Verifica si consulta tiene un valor no vacío
+        setLoading(true);
+        setResponse(""); // Limpia la respuesta previa
+    
+        const response = await fetch("http://localhost:5000/api/generateResumen", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ context }),
+        });
+    
+        if (!response.ok) {
+          throw new Error("Error en la petición");
+        }
+    
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder("utf-8");
+        let done = false;
+    
+        while (!done) {
+          const { value, done: chunkDone } = await reader.read();
+          done = chunkDone;
+          const chunk = decoder.decode(value, { stream: !done });
+    
+          console.log(chunk); // Verifica el contenido de cada chunk recibido
+    
+          // Actualiza el estado con cada chunk recibido
+          setResponse(prevResponse => prevResponse + chunk);
+        }
+    
+        setLoading(false);
       }
     } catch (error) {
       console.error(error);
+      setLoading(false);
     }
-  }
-
+  };
+  
+  
 
 
   return (
