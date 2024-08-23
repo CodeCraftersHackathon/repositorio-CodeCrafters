@@ -1,5 +1,4 @@
 import React from 'react'
-import { Layout } from '../../components/layout/Layout.component'
 import { Cards } from "../../components/Cards.component"
 import { useNavigate } from 'react-router-dom'
 import { Footer } from "../../components/layout/Footer.component"
@@ -66,14 +65,16 @@ export const Index = () => {
                                     Estas son algunas de las herramientas que te podemos brindar
                                 </p>
                                 <div className='flex justify-center w-full p-10 rounded-md bg-transparent'>
-                                <div className="grid sm:grid-cols-2 sm:grid-rows-2 md:grid-cols-4 md:grid-rows-1  gap-5">
+                                <div className="grid sm:grid-cols-1  md:grid-cols-5 md:grid-rows-1  gap-5">
                                     <Cards img={"/herramientas/opciones.png"} title={"Actividades de opcion multiple"} content={"Genera actividades multiple choice mediante inteligencia artificial en base a un tema que desees estudiar"} footer={false} nav={()=>navigate("/auth/multiplechoice")} />
 
-                                    <Cards img={'/herramientas/libre.png'}content={"Genera preguntas sobre algun tema y mide tus conocimientos con la inteligencia artificial"} title={"Actividades de respuesta libre"} footer={false} />
+                                    <Cards img={'/herramientas/libre.png'}content={"Genera preguntas sobre algun tema y mide tus conocimientos con la inteligencia artificial"} title={"Actividades de respuesta libre"} footer={false} nav={()=>navigate("/auth/preguntas")} />
 
-                                    <Cards img={'/herramientas/resumir.png'} content={"Sube una imagen o un texto y obten resumenes mediante IA"} title={"Resumir un texto"} footer={false} />
+                                    <Cards img={'/herramientas/resumir.png'} content={"Sube apuntes y obten resumenes explicativos mediante IA que te ayudaran marcando los puntos claves de la informacion"} title={"Resumir un texto"} footer={false} nav={()=>navigate("/auth/resumen")}/>
 
-                                    <Cards img={'/herramientas/libreta.png'} content={"Lleva registros de tus calificaciones"} title={"Libreta"} footer={false} />
+                                    <Cards img={'/herramientas/todo.png'} content={"Anota todos las actividades que tengas pendientes"} title={"ToDo"} footer={false} nav={()=>navigate("/auth/todo")} />
+                                    
+                                    <Cards img={'/herramientas/libreta.png'} content={"Lleva registros de tus calificaciones"} title={"Libreta"} footer={false} nav={()=>navigate("/auth/libreta")} />
                                 </div>
                                 </div>
                             </div>
