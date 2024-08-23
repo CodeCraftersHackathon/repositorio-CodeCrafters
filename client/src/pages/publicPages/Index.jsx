@@ -47,7 +47,7 @@ export const Index = () => {
                             </div>
                         </div>
                         {/* About */}
-                        <div id= "about" className='bg-gray-900 md:flex py-10 w-full shadow-2xl'>
+                        <div id= "about" className='bg-gray-900 shadow-slate-50 shadow-md md:flex py-10 w-full '>
                                 <img src="/about.png" className='md:w-1/3 p-10 rounded' alt="about" />
 
 
@@ -59,7 +59,7 @@ export const Index = () => {
                             </div>
                         </div>
                         {/* Nuestras Herramientas */}
-                        <div id="herramientas" className='bg-gradient-to-b from-white to-blue-950 md:flex py-10 w-full h-screen  justify-center herramientas'>
+                        <div id="herramientas" className='md:bg-gradient-to-b md:from-white md:to-blue-950 flex bg-white py-10 w-full h-screen  justify-center herramientas'>
                             <div className="text-center flex flex-col w-100">
                                 <h1 className="text-3xl md:text-3xl font-bold text-blue-950 mb-4">Nuestras herramientas</h1>
                                 <p className="text-xl md:text-3xl text-blue-900 p-10">
