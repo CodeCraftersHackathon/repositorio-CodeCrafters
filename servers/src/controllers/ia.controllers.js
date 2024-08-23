@@ -4,8 +4,11 @@ const url = "https://0765-138-121-113-17.ngrok-free.app/api/generate";
 
 class ActivityIaCtrl {
   constructor() {}
-  async generateActivityChoise(req, res) {
+  async generateActivity(req, res) {
     const { consulta } = req.body;
+    const token = req.headers["authorization"].split(" ")[1];
+    const decoded = decodedToken(token);
+    const userId = decoded.id;
     try {
       const peticion = await fetch(url, {
         method: "POST",
@@ -60,7 +63,10 @@ class ActivityIaCtrl {
         accumulatedJSON = accumulatedJSON.slice(startIndex);
         chunk = await reader.read();
       }
-
+      const newQuestionFree = await freeQuestionsService.createFreeQuestion({
+        question: consulta,
+        userId,
+      });
       res.end();
     } catch (error) {
       console.error(error);
