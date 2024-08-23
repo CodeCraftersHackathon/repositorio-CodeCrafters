@@ -102,7 +102,7 @@ class UserService {
         try {
             console.log(data);
 
-            const existUser = await this.findByNameOrEmail({ user: data.user })
+            const existUser = await this.findByNameOrEmail({ userName: data.user })
 
             console.log(existUser);
 
@@ -121,16 +121,13 @@ class UserService {
 
     async insertManyFake(data) {
         try {
-            const existUsers = await this.findAll();
-    
-            if (existUsers.length <= 1) { 
+            const existUsers = await this.findAll()
                 //! Inserta múltiples documentos en la colección
                 await User.insertMany(data);
                 return 'Datos insertados correctamente';
-            } else {
-                throw new Error("No es posible insertar tantos usuarios, ya existen usuarios en la base de datos.");
-            }
-    
+         
+            
+
         } catch (error) {
             throw new Error(error.message || "Error al insertar datos");
         }

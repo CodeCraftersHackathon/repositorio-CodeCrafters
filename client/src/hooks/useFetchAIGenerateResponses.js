@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Route } from "react-router-dom";
 
-export function useFetchGenerate() {
-    const [generateResponse, setGenerateResponse] = useState("")
-    const [loading, setLoading] = useState(false)
+export function useFetchGenerateResponses() {
+    const [generateResponseAI, setGenerateResponse] = useState("")
+    const [loadingResponses, setLoading] = useState(false)
 
-    async function fetchOllama(route, type, payload) {
+    async function fetchOllamaResponses(route, type, payload) {
 
         if (payload.consulta !== "") {
             setLoading(true)
@@ -64,5 +64,5 @@ export function useFetchGenerate() {
         }
     }
 
-    return { generateResponse, fetchOllama, loading }
+    return { generateResponseAI, fetchOllamaResponses, loadingResponses }
 }

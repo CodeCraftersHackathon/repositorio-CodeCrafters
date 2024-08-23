@@ -5,7 +5,16 @@ class FreeQuestionsService {
   async getFreeQuestions() {
     return await FreeQuestions.find();
   }
-  async getFreeQuestion(id) {
+  async getLastFreeQuestion(userId) {
+    try {
+      //obtener la ultima actividad realizada el usuario
+      const activuty = await FreeQuestions.findById(userId).sort({ _id: -1 });
+      return activuty;
+    } catch (error) {
+      console.log(error); 
+    }
+  }
+  async getFreeQuestionById(id) {
     return await FreeQuestions.findById(id);
   }
   async createFreeQuestion(freeQuestion) {

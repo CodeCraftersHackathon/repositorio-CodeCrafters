@@ -1,6 +1,19 @@
 import UserService from "../services/UserService.js"
 import fakeUser from '../db/fake-user.json' assert { type: 'json' };
 
+
+export const getUsers = async (req, res) => {
+    try {
+        const users = await UserService.findAll();
+        return res.json(users)
+    } catch (error) {
+        return res.status(error.status || 500).json({
+            status: 500,
+            message: error.message,
+            status: error.status,
+        })
+    }
+}
 export const getUserById = async (req, res) => {
     try {
         const user = await UserService.findOne(req.params.id);

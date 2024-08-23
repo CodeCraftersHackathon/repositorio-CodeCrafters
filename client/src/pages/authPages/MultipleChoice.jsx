@@ -1,5 +1,4 @@
 import { useState, useMemo, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { Layout } from "../../components/layout/Layout.component";
 import { useRadioForm } from "../../hooks/useRadioForm";
 import { apiFetchFunction } from "../../hooks/fetchApi"

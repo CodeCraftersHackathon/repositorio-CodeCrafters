@@ -18,11 +18,24 @@
 <script>
 
     const consulta= `
-    Durante la Primera Revolución Industrial, hubo una migración masiva de campesinos hacia las ciudades, donde encontraban oportunidad de subsistir como trabajadores asalariados en las nuevas fábricas. Como consecuencia de estos cambios, se definió un nuevo tipo de sociedad, caracterizado por la oposición entre la burguesía (clase social dueña de las fábricas y el capital) y el proletariado (clase social que depende del trabajo asalariado para su subsistencia). 
-
-La Segunda Revolución Industrial se caracterizó por el aumento de la productividad industrial a partir de la introducción de la cadena de montaje (separación del proceso productivo en diferentes etapas) y  nuevas fuentes de energía. En esta segunda etapa, Alemania protagonizó el mayor crecimiento económico, y las transformaciones se extendieron a Estados Unidos y Japón.
-
-
+    Respuesta del usuario: Transportar oxígeno desde los pulmones hacia los tejidos del cuerpo y llevar dióxido de carbono de vuelta a los pulmones para ser exhalado.
+Pregunta: ¿Qué es la fotosíntesis?
+Respuesta del usuario: La fotosíntesis es la conversión de luz solar en energía mediante reacciones químicas en las células vegetales.
+Pregunta: ¿Quién fue el autor de la teoría de la relatividad?
+Respuesta del usuario: Albert Einstein fue el autor de la teoría de la relatividad.
+Pregunta: ¿Qué es un átomo?
+Respuesta del usuario: Un átomo es una partícula subatómica que constituye toda la materia.
+Pregunta: ¿Cuál es la capital de Francia?
+Respuesta del usuario: La capital de Francia es Berlín.
+Pregunta: ¿Qué es el ciclo del agua?
+Respuesta del usuario: El ciclo del agua es el proceso por el cual el agua circula entre la atmósfera y la superficie terrestre.
+Pregunta: ¿Cuál es el número atómico del carbono?
+Respuesta del usuario: El número atómico del carbono es 8.
+Pregunta: ¿Qué es un ecosistema?
+Respuesta del usuario: Un ecosistema es un grupo de especies animales que viven en un hábitat específico.
+Pregunta: ¿Quién pintó la Mona Lisa?
+Respuesta del usuario: La Mona Lisa fue pintada por Vincent van Gogh.
+Pregunta: ¿Qué es un agujero negro?
 
     `
   // Función para cargar la respuesta progresivamente. 
@@ -31,7 +44,7 @@ La Segunda Revolución Industrial se caracterizó por el aumento de la productiv
 
     // Hacer la solicitud al servidor
     console.log('Haciendo la solicitud al servidor');
-    const response = await fetch('http://localhost:3000/api/generateResumen', {
+    const response = await fetch('http://localhost:5000/api/questioncorrection', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
