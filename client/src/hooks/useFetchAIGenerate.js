@@ -1,23 +1,24 @@
 import { useState } from "react";
+import { Route } from "react-router-dom";
 
 export function useFetchGenerate() {
     const [generateResponse, setGenerateResponse] = useState("")
     const [loading, setLoading] = useState(false)
 
-    async function fetchGenerate(context, type, courseId) {
+    async function fetchOllama(route, type, payload) {
 
-        if (context !== "" || context !== null) {
+        if (payload.consulta !== "") {
             setLoading(true)
             if (type === true) {
                 try {
-                    console.log(context);
-                    const ollama = await fetch("http://localhost:5000/api/actividades_seleccion", {
+                    console.log(payload);
+                    const ollama = await fetch(`http://localhost:5000/api${route}`, {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
                             "Authorization": `Bearer ${localStorage.getItem("token")}`,
                         },
-                        body: JSON.stringify({ context: context, courseId: courseId }),
+                        body: JSON.stringify(payload),
                     });
 
                     if (!ollama.ok) {
@@ -35,7 +36,7 @@ export function useFetchGenerate() {
                     }
 
                 } catch (error) {
-                    setGenerateResponse("Lo sentimos, la IA no está disponible de momento... 😢");
+                    setGenerateResponse("Lo sentimos, la IA no está disponible de momento... 😢", error);
                 }
             } else {
                 try {
@@ -45,7 +46,7 @@ export function useFetchGenerate() {
                             "Content-Type": "application/json",
                             "Authorization": `Bearer ${localStorage.getItem("token")}`,
                         },
-                        body: JSON.stringify({consulta: context.consulta, courseId: courseId, theme: context.theme}),
+                        body: JSON.stringify({ consulta: context.consulta, courseId: courseId, theme: context.theme }),
                     });
 
                     if (!ollama.ok) {
@@ -63,5 +64,5 @@ export function useFetchGenerate() {
         }
     }
 
-    return { generateResponse, fetchGenerate, loading }
+    return { generateResponse, fetchOllama, loading }
 }
