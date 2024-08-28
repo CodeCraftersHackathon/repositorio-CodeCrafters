@@ -6,7 +6,7 @@ export const Cards = ({ img, title, content, children, footer = true, nav, subTi
       <article className="bg-white shadow rounded-xl  group w-72
       hover:shadow-2xl relative z-10">
 
-            < div className="relative overflow-hidden cursor-pointer">
+            < div className="relative overflow-hidden cursor-pointer rounded-xl">
 
                 {/* IMG */}
                 <div className="h-72 w-72 rounded-xl">
